@@ -1,0 +1,3579 @@
+{
+  "backupVersion": "1.0.0",
+  "exportedAt": "2026-06-24T06:20:26.531Z",
+  "expenses": [
+    {
+      "id": "0bf99a02-ffe7-4bfe-976c-1b6a22d07873",
+      "expenseDate": "2025-01-03T09:30:00.000Z",
+      "createdAt": "2025-01-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "fe1b07c1-45d4-41af-9c1e-3c1b613ea1f5",
+      "expenseDate": "2025-01-10T18:15:00.000Z",
+      "createdAt": "2025-01-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "722924de-21c3-4e22-87a8-466556822784",
+      "expenseDate": "2025-01-15T08:45:00.000Z",
+      "createdAt": "2025-01-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "831457de-edce-4423-9f51-e8d41fd2afc4",
+      "expenseDate": "2025-01-22T13:20:00.000Z",
+      "createdAt": "2025-01-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "a680050e-1a77-4755-affc-fc9d721f91a3",
+      "expenseDate": "2025-01-05T20:00:00.000Z",
+      "createdAt": "2025-01-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "7d3aab62-a689-45b3-adb4-c2e9341c7a53",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "37a4b3a9-1cd1-452d-912a-5c29354d52ce",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "92668488-fc14-45b0-92d8-61d546568558",
+      "expenseDate": "2025-01-12T19:30:00.000Z",
+      "createdAt": "2025-01-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "a9bc116a-2d7f-4bda-8123-88da8d75378e",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "595d6fb7-6cfc-4475-a504-ddb7206b6706",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "769aa8c4-cf87-4120-9c5a-747c9fedeb09",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "674fe907-34fb-4f74-bd8c-2462a0720916",
+      "expenseDate": "2025-01-18T14:00:00.000Z",
+      "createdAt": "2025-01-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "555038b1-ab18-46bf-b19d-cc7b8f880259",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a934456-9f0b-4e1e-98cb-1e57a78df2c8",
+      "expenseDate": "2025-01-25T17:45:00.000Z",
+      "createdAt": "2025-01-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "c069a30d-78a6-4c85-8e35-a3882f77da80",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "72a62ba3-dafe-479c-bfd9-acdc4c015e29",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "4377c471-0e4e-488a-8456-8c62d5a1de64",
+      "expenseDate": "2025-02-03T09:30:00.000Z",
+      "createdAt": "2025-02-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "a60aeed3-1ca5-4af0-8c09-0650965cccf4",
+      "expenseDate": "2025-02-10T18:15:00.000Z",
+      "createdAt": "2025-02-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "52915a6e-42e3-4ed3-a295-2e68c9fedb2d",
+      "expenseDate": "2025-02-15T08:45:00.000Z",
+      "createdAt": "2025-02-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "14879768-7d56-48bf-9ec7-123956b53134",
+      "expenseDate": "2025-02-22T13:20:00.000Z",
+      "createdAt": "2025-02-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "5eb56342-72d6-4c87-92ac-b291622e994e",
+      "expenseDate": "2025-02-05T20:00:00.000Z",
+      "createdAt": "2025-02-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "6945c354-5f26-4d96-b166-1120a5c0407d",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "d2459ac5-3166-47bc-be7c-729e1acf9ce3",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "831bb614-27b3-4c51-8737-37d6e579ddf9",
+      "expenseDate": "2025-02-12T19:30:00.000Z",
+      "createdAt": "2025-02-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "e733e5aa-8548-4507-b0d1-1ee1755df0f3",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "cb39bb59-dc73-4fa5-bc06-cee0ec4000d6",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "c74b3f9a-b0cb-43b7-9ec9-005f5c64a705",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "3b18bbcb-15a7-4920-be3f-f1fdd645dab5",
+      "expenseDate": "2025-02-18T14:00:00.000Z",
+      "createdAt": "2025-02-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "d7d4fdc1-cdf8-4a3a-88a2-a7d0c77682aa",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "88a5a952-3b5c-4419-8d4d-a16293bd655d",
+      "expenseDate": "2025-02-25T17:45:00.000Z",
+      "createdAt": "2025-02-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "29bf5dc7-650d-404a-84fa-e106fff12175",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "2678896e-bb7e-4224-875c-d832f3c78ad4",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "8fc286fd-221f-4d6e-bb83-a8a421596d51",
+      "expenseDate": "2025-03-03T09:30:00.000Z",
+      "createdAt": "2025-03-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "8ad9086f-f85a-412f-9d19-702b1859d411",
+      "expenseDate": "2025-03-10T18:15:00.000Z",
+      "createdAt": "2025-03-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "0fe78e7a-b9fe-4193-9361-8d9c270b2495",
+      "expenseDate": "2025-03-15T08:45:00.000Z",
+      "createdAt": "2025-03-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "7c196c7d-1eeb-445c-9305-4340e991d901",
+      "expenseDate": "2025-03-22T13:20:00.000Z",
+      "createdAt": "2025-03-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "69ad9b2e-c1b6-4049-8474-c5e0b89190d6",
+      "expenseDate": "2025-03-05T20:00:00.000Z",
+      "createdAt": "2025-03-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "e41a5f26-e933-473f-b046-a1b3fe4bf179",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "25f47e28-ae10-4c38-a375-7c3498a7aabb",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "b1ba8750-2558-441c-995b-c0bcea85cde3",
+      "expenseDate": "2025-03-12T19:30:00.000Z",
+      "createdAt": "2025-03-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "25437bdc-d1db-4b30-937b-5ed1ba941303",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "d6717eef-2077-4ffb-a561-7f2b787cb520",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "a3dcf690-64f4-46ed-b63b-7a6c475d3ed1",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "6b9d9d17-6aaf-44f6-af93-bb2d1772a616",
+      "expenseDate": "2025-03-18T14:00:00.000Z",
+      "createdAt": "2025-03-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "ec952383-1f87-4fef-ab49-b7e3a8b6da52",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "6f90b3cc-8633-4280-8dea-b340b30a604e",
+      "expenseDate": "2025-03-25T17:45:00.000Z",
+      "createdAt": "2025-03-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "8fdafeb8-a3c0-4577-b7a8-97cfff6a0ba6",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "7febe1d0-e018-4b04-8ae0-89a61ac1e974",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "68f68284-c13e-4d94-93e6-13a43e28e4cc",
+      "expenseDate": "2025-03-28T16:00:00.000Z",
+      "createdAt": "2025-03-28T16:05:00.000Z",
+      "category": "Beverages",
+      "totalAmount": 300,
+      "myShare": 150,
+      "remark": "Evening drinks [₹150 auto-deducted from Alice's wallet]",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "2a9f4f67-ef7c-4867-be99-2f6cbb6a8f54",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "c4e9be61-a433-40fd-b965-c13da7c3d494",
+      "expenseDate": "2025-03-29T21:10:00.000Z",
+      "createdAt": "2025-03-29T21:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 300,
+      "remark": "Takeout meal [Used remaining ₹150 wallet credit for Bob]",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "8e1be6a1-0900-46ab-a23d-732892f55a8e",
+            "name": "Bob",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "95c5f79b-7a40-46e4-bc26-ea79f220ba56",
+      "expenseDate": "2025-04-03T09:30:00.000Z",
+      "createdAt": "2025-04-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "540599bd-8ca2-4adc-86a2-e5caa3cbce9c",
+      "expenseDate": "2025-04-10T18:15:00.000Z",
+      "createdAt": "2025-04-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "1388a5fe-6903-4846-ab4d-f7bed2416613",
+      "expenseDate": "2025-04-15T08:45:00.000Z",
+      "createdAt": "2025-04-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "dcbea707-7ef6-4139-936b-833599e2fd56",
+      "expenseDate": "2025-04-22T13:20:00.000Z",
+      "createdAt": "2025-04-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "38c17bf0-506f-4e72-87cd-d441891ed99d",
+      "expenseDate": "2025-04-05T20:00:00.000Z",
+      "createdAt": "2025-04-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "a5a8decf-47a2-4701-9135-b4edc44ed0ec",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "3410014c-ea23-474b-b847-62ab30201a9d",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "fc34c7ee-0824-4a31-90c7-487d453102a3",
+      "expenseDate": "2025-04-12T19:30:00.000Z",
+      "createdAt": "2025-04-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "741dc1bf-4374-418d-8042-6cf32c326757",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "918792f5-463e-46fb-8caa-941290bc2f1a",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "965d758e-4cde-4977-9914-e75e092afb84",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "794b1112-3787-4829-913c-1873282ec668",
+      "expenseDate": "2025-04-18T14:00:00.000Z",
+      "createdAt": "2025-04-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "31c46c73-b143-4ded-b1a9-11dd875c6f01",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "b5ddc5d1-ef34-4f59-8e81-957e2c34e49d",
+      "expenseDate": "2025-04-25T17:45:00.000Z",
+      "createdAt": "2025-04-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "c6c0e759-dbfc-4d1d-9c23-040dcd5ba5c4",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "4a90ea6a-4904-4db5-8265-d8155b3e292e",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "0e99fce0-903a-43b8-85d2-e683c6d6fb04",
+      "expenseDate": "2025-05-03T09:30:00.000Z",
+      "createdAt": "2025-05-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "24f3fdab-cf90-4914-a4f8-54b0f0e6fbb9",
+      "expenseDate": "2025-05-10T18:15:00.000Z",
+      "createdAt": "2025-05-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "4de743ef-4f49-469d-9f38-b53595ced2b0",
+      "expenseDate": "2025-05-15T08:45:00.000Z",
+      "createdAt": "2025-05-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "90ff85f2-7ab4-4a73-82f5-0e22c99ae85f",
+      "expenseDate": "2025-05-22T13:20:00.000Z",
+      "createdAt": "2025-05-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "1b371928-044b-4788-92ea-76c72b7c985c",
+      "expenseDate": "2025-05-05T20:00:00.000Z",
+      "createdAt": "2025-05-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "1cba3ee5-4ab2-462b-8f7e-4c75718087b2",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "c1639e21-16da-4f2f-978c-2ef54a5e2b5f",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "e2ce4567-f824-4e00-a6ba-39d1b9b45f65",
+      "expenseDate": "2025-05-12T19:30:00.000Z",
+      "createdAt": "2025-05-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "b08a34a0-0bb4-4584-a6a1-15e7fd1997e9",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "9275ea9e-8b65-4e1e-8ded-2e1da4e2c60d",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "30b7e944-e75d-4a54-84b5-6624c7292189",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "589a53c8-b47f-4a66-86e3-659168e25884",
+      "expenseDate": "2025-05-18T14:00:00.000Z",
+      "createdAt": "2025-05-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "24176b8b-3fa8-41fa-b2d9-d51d145bc834",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "96570d83-3269-487c-94ec-d5934b486141",
+      "expenseDate": "2025-05-25T17:45:00.000Z",
+      "createdAt": "2025-05-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "f1c0a2f1-d633-4e0a-999b-c84897bb9c82",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "55b734e1-1ba2-4a38-9a1a-aac79fa00a60",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "7c26765a-93c0-4596-a678-e8ee75b6f2d2",
+      "expenseDate": "2025-05-10T14:00:00.000Z",
+      "createdAt": "2025-05-10T14:15:00.000Z",
+      "category": "Stay",
+      "totalAmount": 12000,
+      "myShare": 3000,
+      "remark": "Goa Beach Resort Booking - 4 nights",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "eventId": "event-goa-2025",
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "e3288dc4-2f36-4370-b023-4c2f416f2e06",
+            "name": "Alice",
+            "shareAmount": 3000,
+            "hasPaid": true
+          },
+          {
+            "id": "8d56f946-651e-4bdd-b8f6-c33def13a241",
+            "name": "Bob",
+            "shareAmount": 3000,
+            "hasPaid": true
+          },
+          {
+            "id": "3c3693d4-9665-4951-9361-a0a2fefe944c",
+            "name": "Charlie",
+            "shareAmount": 3000,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "2e325a68-64ab-4d16-83a9-7d092d8a1893",
+      "expenseDate": "2025-05-11T10:30:00.000Z",
+      "createdAt": "2025-05-11T10:45:00.000Z",
+      "category": "Activity",
+      "totalAmount": 4500,
+      "myShare": 1125,
+      "remark": "Scuba Diving & Water sports package",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "eventId": "event-goa-2025",
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "6659a8e6-76e6-4fa9-8573-cba37be81d97",
+            "name": "Alice",
+            "shareAmount": 1125,
+            "hasPaid": true
+          },
+          {
+            "id": "5e818f11-607d-4fc2-8f69-d1f781df2b85",
+            "name": "Bob",
+            "shareAmount": 1125,
+            "hasPaid": true
+          },
+          {
+            "id": "3cd0b665-fa5f-415a-b44e-810ec0cd22c3",
+            "name": "Charlie",
+            "shareAmount": 1125,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "2c1bcfc3-e386-49eb-8e84-ec5121b54be5",
+      "expenseDate": "2025-05-12T21:00:00.000Z",
+      "createdAt": "2025-05-12T21:30:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 2400,
+      "myShare": 600,
+      "remark": "Seafood dinner shacks at beach",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "eventId": "event-goa-2025",
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "64bb9450-aa3e-482d-8c7f-212399d7f8e6",
+            "name": "Alice",
+            "shareAmount": 600,
+            "hasPaid": true
+          },
+          {
+            "id": "b07ca30c-6bc7-47fc-8f41-ff83ad0fa89f",
+            "name": "Bob",
+            "shareAmount": 600,
+            "hasPaid": true
+          },
+          {
+            "id": "52847668-b2e0-4eed-8095-fe10db22a1c2",
+            "name": "Charlie",
+            "shareAmount": 600,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "7c233a02-ad3a-43d5-ae6d-49b938aec24e",
+      "expenseDate": "2025-06-03T09:30:00.000Z",
+      "createdAt": "2025-06-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "5713dd46-b243-4e2b-8944-04d98b412db3",
+      "expenseDate": "2025-06-10T18:15:00.000Z",
+      "createdAt": "2025-06-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "3f9d5be4-63cb-4d6e-a9e2-5e23b2aa49ab",
+      "expenseDate": "2025-06-15T08:45:00.000Z",
+      "createdAt": "2025-06-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "db74104b-fee2-41a7-b88f-160b8faf88ad",
+      "expenseDate": "2025-06-22T13:20:00.000Z",
+      "createdAt": "2025-06-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "2f27b2ed-8dde-465a-914a-b60dcd24458e",
+      "expenseDate": "2025-06-05T20:00:00.000Z",
+      "createdAt": "2025-06-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "644b69c6-c996-4a61-b302-b0033226dd59",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "93cd2eab-1a08-40c5-ac26-306b7cf2a5e9",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "4c468a7a-387c-4f3f-90ef-ba8e027a082f",
+      "expenseDate": "2025-06-12T19:30:00.000Z",
+      "createdAt": "2025-06-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "84fc8c9d-a7dc-4c7e-91f0-932077719dfa",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "c282ed2d-657d-42a0-a86e-e963ae435a01",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "9a68f73c-afd5-426d-9e52-f8ee28a76c9f",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "de91eed4-5e81-4d83-9eea-cad052f93f02",
+      "expenseDate": "2025-06-18T14:00:00.000Z",
+      "createdAt": "2025-06-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "e3b60e55-f28c-4e44-9dbe-229e14c1cbd2",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "4605f5f4-8b5f-41d6-9dee-e6079e84bd6c",
+      "expenseDate": "2025-06-25T17:45:00.000Z",
+      "createdAt": "2025-06-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "c6278cd5-009c-4d5b-8798-207265177486",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "45cc4d81-91ff-4752-bee8-411dcccd4add",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "77aa6623-b66f-4822-af12-d61c02fade99",
+      "expenseDate": "2025-06-28T16:00:00.000Z",
+      "createdAt": "2025-06-28T16:05:00.000Z",
+      "category": "Beverages",
+      "totalAmount": 300,
+      "myShare": 150,
+      "remark": "Evening drinks [₹150 auto-deducted from Alice's wallet]",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "b6dbd25c-f668-4846-b857-004badd35b6c",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "a72a6e09-6eaa-458c-b6b5-8c5f19f8a965",
+      "expenseDate": "2025-06-29T21:10:00.000Z",
+      "createdAt": "2025-06-29T21:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 300,
+      "remark": "Takeout meal [Used remaining ₹150 wallet credit for Bob]",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "bad522d3-448c-4ec5-8635-63ba84e1bb50",
+            "name": "Bob",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "5c5baf57-2372-4dcf-837a-c1b57e66f740",
+      "expenseDate": "2025-07-03T09:30:00.000Z",
+      "createdAt": "2025-07-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "ef774592-6c85-4c52-91d0-db753c0870a6",
+      "expenseDate": "2025-07-10T18:15:00.000Z",
+      "createdAt": "2025-07-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "847ea3f4-ce8a-498b-8ddb-491dd945d1a0",
+      "expenseDate": "2025-07-15T08:45:00.000Z",
+      "createdAt": "2025-07-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "9582ca3f-52e8-43ef-9fb4-7db4e313845d",
+      "expenseDate": "2025-07-22T13:20:00.000Z",
+      "createdAt": "2025-07-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "dd73acaa-7217-47a0-8811-2f7f7b095985",
+      "expenseDate": "2025-07-05T20:00:00.000Z",
+      "createdAt": "2025-07-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "88fb0e95-2216-4267-ab23-f9cbdb4bcfd2",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "76bf1c06-9282-43ad-95b1-b924079f5180",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "e840285e-9a89-40f3-aeed-5a684befb005",
+      "expenseDate": "2025-07-12T19:30:00.000Z",
+      "createdAt": "2025-07-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "1b566618-eeb1-4cf9-b85a-5836be50e3ca",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "1c898710-5372-48d2-afb4-40aa798e9f5e",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "59f31a2e-90c6-4e9d-a066-1e9540a5f9cb",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "0f129ac0-085e-4e65-8d4f-5d75cf2655fa",
+      "expenseDate": "2025-07-18T14:00:00.000Z",
+      "createdAt": "2025-07-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "0df4238a-57e2-4fd8-b41d-de8afcf21034",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "9f5e7f5a-8378-4449-a2b7-28b73b033178",
+      "expenseDate": "2025-07-25T17:45:00.000Z",
+      "createdAt": "2025-07-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "e3bda563-2240-42f3-9f7b-a6330251ef63",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "1485a99f-8362-4646-8732-7080e5ffa495",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "c0eefd5d-fc89-43a1-9983-266fcfea62b5",
+      "expenseDate": "2025-08-03T09:30:00.000Z",
+      "createdAt": "2025-08-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "5ed39f58-a24e-41c4-ba8a-428c56d70edc",
+      "expenseDate": "2025-08-10T18:15:00.000Z",
+      "createdAt": "2025-08-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "e04bb466-b55b-4706-8c5e-8b66df893ea8",
+      "expenseDate": "2025-08-15T08:45:00.000Z",
+      "createdAt": "2025-08-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "6f9a7305-3dc2-4e4c-8911-fe321fdd4392",
+      "expenseDate": "2025-08-22T13:20:00.000Z",
+      "createdAt": "2025-08-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "46e2197f-d738-4430-9db7-4b3f2f20dbce",
+      "expenseDate": "2025-08-05T20:00:00.000Z",
+      "createdAt": "2025-08-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "ec5566b8-fddb-49c0-ad87-197c9a3d2a56",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "6d51ddf0-8871-4f64-a3f5-cd251da72cd3",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "a469b515-c013-4ab4-88b0-3e03a706240d",
+      "expenseDate": "2025-08-12T19:30:00.000Z",
+      "createdAt": "2025-08-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "2cfc9b40-b92d-4df1-bae2-49b536b65291",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "342eef28-5ffe-4114-95f8-c922510eef40",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "a9cb5095-6546-49fb-bb6e-955e43c305ca",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "c970ca43-0d17-438d-a6e9-fa7efd8b9373",
+      "expenseDate": "2025-08-18T14:00:00.000Z",
+      "createdAt": "2025-08-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "33901c2c-dfd7-4175-bf6e-c21e6118584a",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "7d9a71a1-cbb3-42fd-8a8d-f207fc8a61f9",
+      "expenseDate": "2025-08-25T17:45:00.000Z",
+      "createdAt": "2025-08-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "067e0973-9b12-427c-b844-c18244361d36",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "474f1468-c7b6-406b-b494-aa5574fea5a2",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "60a5223e-4d93-4ca6-856d-413f5f2bff79",
+      "expenseDate": "2025-09-03T09:30:00.000Z",
+      "createdAt": "2025-09-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "9ca3e91a-5ec6-4542-affe-9edc2a8a8d02",
+      "expenseDate": "2025-09-10T18:15:00.000Z",
+      "createdAt": "2025-09-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "547d7e48-4711-406f-9fce-71902a7246e1",
+      "expenseDate": "2025-09-15T08:45:00.000Z",
+      "createdAt": "2025-09-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "1425baa7-a575-4503-8590-1429fd8eb510",
+      "expenseDate": "2025-09-22T13:20:00.000Z",
+      "createdAt": "2025-09-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "f19b3157-b619-47f5-b286-ec98bb0834cb",
+      "expenseDate": "2025-09-05T20:00:00.000Z",
+      "createdAt": "2025-09-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "88d0da56-3856-47a7-be8b-3417618a16dc",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "a81cd061-12e4-471e-890a-a024be1f288a",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "f0ab4d8e-2a39-484b-9126-75a924b613fa",
+      "expenseDate": "2025-09-12T19:30:00.000Z",
+      "createdAt": "2025-09-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "1dae95a4-9f28-42ee-9d21-1130996d3dfa",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "e30b8b4e-09e9-4bf0-98bf-8080f6bf8cce",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "3ad0aa3e-bf4a-4446-a616-6883506173d2",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "b2b44060-d9ae-46c8-974b-19b44b9fa568",
+      "expenseDate": "2025-09-18T14:00:00.000Z",
+      "createdAt": "2025-09-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "7849f486-668c-4cb0-a130-a6222605f611",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "4a98bbf7-7e36-4c94-baba-9eb63bf84c43",
+      "expenseDate": "2025-09-25T17:45:00.000Z",
+      "createdAt": "2025-09-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "732c1361-dd4b-4c12-a258-1b1a1ebfc943",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "386215a8-1d22-4278-bb91-74eed3f3b7fb",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "29d333ac-998d-484a-ba90-484db4a52dec",
+      "expenseDate": "2025-09-28T16:00:00.000Z",
+      "createdAt": "2025-09-28T16:05:00.000Z",
+      "category": "Beverages",
+      "totalAmount": 300,
+      "myShare": 150,
+      "remark": "Evening drinks [₹150 auto-deducted from Alice's wallet]",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "c02e2737-a898-4975-bbd5-730e93704917",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "56e4793e-55c3-4833-80cd-5338196816df",
+      "expenseDate": "2025-09-29T21:10:00.000Z",
+      "createdAt": "2025-09-29T21:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 300,
+      "remark": "Takeout meal [Used remaining ₹150 wallet credit for Bob]",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "bed9831f-b446-4562-b32b-cd6774e6debd",
+            "name": "Bob",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "34529a69-4f2f-4363-8dd7-c1ce3ba25ddf",
+      "expenseDate": "2025-10-03T09:30:00.000Z",
+      "createdAt": "2025-10-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "1eebd96c-b143-43d5-bf1b-a4b207810746",
+      "expenseDate": "2025-10-10T18:15:00.000Z",
+      "createdAt": "2025-10-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "994d705f-248c-4672-ab58-03603e6e3e14",
+      "expenseDate": "2025-10-15T08:45:00.000Z",
+      "createdAt": "2025-10-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "6f8bc536-36d4-4029-b967-ac8a045ec4fb",
+      "expenseDate": "2025-10-22T13:20:00.000Z",
+      "createdAt": "2025-10-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "90f6081e-9a5a-4e3f-8bfe-853c0e7b73c9",
+      "expenseDate": "2025-10-05T20:00:00.000Z",
+      "createdAt": "2025-10-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "5e341e20-c22a-47ba-8fb5-8116c87fc354",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "e324a080-3cb8-472d-ab7d-260c0123ff05",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "49b24aa8-41a9-4d71-af88-7419bfe114dd",
+      "expenseDate": "2025-10-12T19:30:00.000Z",
+      "createdAt": "2025-10-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "2b87ee40-f12b-4d5a-8eaf-81bd3fea1bf8",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "d1591feb-79af-4799-908a-9ee387a5d599",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "436cbda3-914c-43a5-91ea-bbd5ab250c6f",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "267a846b-03c5-4074-b492-ea0a51bbe440",
+      "expenseDate": "2025-10-18T14:00:00.000Z",
+      "createdAt": "2025-10-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "a0630234-05c1-4c31-a13d-e65c80870bdd",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "b5f40c8f-edda-4714-8039-e33c1ca4b227",
+      "expenseDate": "2025-10-25T17:45:00.000Z",
+      "createdAt": "2025-10-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "77ae0d54-8606-4edc-abe8-cf2190b1d612",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "720580cc-fa0c-48a7-9b70-47c0d957e13b",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "19346610-c50b-4ef5-9263-192216fbac77",
+      "expenseDate": "2025-10-15T09:00:00.000Z",
+      "createdAt": "2025-10-15T09:10:00.000Z",
+      "category": "Activity",
+      "totalAmount": 8000,
+      "myShare": 2000,
+      "remark": "Office retreat team building games & arena rent",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "eventId": "event-office-retreat",
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "28dfe868-c13a-4a47-81d6-f13cc0b4b7a8",
+            "name": "David",
+            "shareAmount": 2000,
+            "hasPaid": true
+          },
+          {
+            "id": "2f35e713-aa94-4039-851e-80a630178dde",
+            "name": "Eva",
+            "shareAmount": 2000,
+            "hasPaid": true
+          },
+          {
+            "id": "9deb40a0-ec0d-483b-864b-d6268720d93b",
+            "name": "Frank",
+            "shareAmount": 2000,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "aafc91b6-2458-4b48-b7ba-0f0f9fe901e6",
+      "expenseDate": "2025-10-16T13:00:00.000Z",
+      "createdAt": "2025-10-16T13:10:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 3600,
+      "myShare": 900,
+      "remark": "Retreat catering lunch",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "eventId": "event-office-retreat",
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "47cc7492-70f1-42b8-882c-14a78c40d7bb",
+            "name": "David",
+            "shareAmount": 900,
+            "hasPaid": true
+          },
+          {
+            "id": "04ef010f-5c06-43ca-94c4-dff33958c9f0",
+            "name": "Eva",
+            "shareAmount": 900,
+            "hasPaid": false
+          },
+          {
+            "id": "ef1c9964-febc-46df-8660-c1b48ff86a71",
+            "name": "Frank",
+            "shareAmount": 900,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "af70bfa3-bbac-4881-bd8f-9a3062cd81a1",
+      "expenseDate": "2025-11-03T09:30:00.000Z",
+      "createdAt": "2025-11-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "ba90b4ad-5e63-4a64-9423-50020d90a7f9",
+      "expenseDate": "2025-11-10T18:15:00.000Z",
+      "createdAt": "2025-11-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "0ca4e181-ab03-435e-ab0a-ea3f08ad0f0b",
+      "expenseDate": "2025-11-15T08:45:00.000Z",
+      "createdAt": "2025-11-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "86fd408e-fb6c-4171-a298-844a2f0a3f50",
+      "expenseDate": "2025-11-22T13:20:00.000Z",
+      "createdAt": "2025-11-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "a02c3eb7-e219-4595-a0d6-ccd343e91687",
+      "expenseDate": "2025-11-05T20:00:00.000Z",
+      "createdAt": "2025-11-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "2831bb0d-29f6-40bc-bc38-9cf34042ed01",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "ebb5dbc0-0d93-4f0a-ac1e-7d2748677ff2",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "e4cb8089-5305-4ff4-be62-75d0b2294f4b",
+      "expenseDate": "2025-11-12T19:30:00.000Z",
+      "createdAt": "2025-11-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "401355d4-fa36-421b-b350-8c66d4a4e862",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "eed916f2-9342-4460-8dc8-bebab8f36c65",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "477c580a-82ab-49e2-ba1e-57a304b2bd2f",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "9a48f2b4-8713-42cc-99ce-91a726cba9a5",
+      "expenseDate": "2025-11-18T14:00:00.000Z",
+      "createdAt": "2025-11-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "692b128f-c342-44bb-ad1e-4ad0582a312f",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "0eeec34d-f70f-4a81-b1ed-644a46092b5a",
+      "expenseDate": "2025-11-25T17:45:00.000Z",
+      "createdAt": "2025-11-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "752faf95-865a-4792-8b7a-c4ff82b15d5b",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "3386639e-85d0-467b-adef-19a462cff398",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "bb4577eb-aef2-4e47-a148-5c2267f745e7",
+      "expenseDate": "2025-12-03T09:30:00.000Z",
+      "createdAt": "2025-12-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "cadb3e07-bfaa-46b9-87c0-5f2298801fae",
+      "expenseDate": "2025-12-10T18:15:00.000Z",
+      "createdAt": "2025-12-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "d3b44e80-6e2f-4614-bc12-237c6a9fc549",
+      "expenseDate": "2025-12-15T08:45:00.000Z",
+      "createdAt": "2025-12-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "94de78e3-9f4d-4d0c-8e78-993af8001086",
+      "expenseDate": "2025-12-22T13:20:00.000Z",
+      "createdAt": "2025-12-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "a4717877-327d-4c5a-b55f-18fd4c479899",
+      "expenseDate": "2025-12-05T20:00:00.000Z",
+      "createdAt": "2025-12-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "ad2870ff-fe5e-4b83-b143-cfae7c6fafc5",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "95b83cc5-aebe-49a3-916b-7f2c1d9de0cf",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "afe02b96-b96c-4b61-9472-e46ee5bc9df1",
+      "expenseDate": "2025-12-12T19:30:00.000Z",
+      "createdAt": "2025-12-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "e5483bf1-db31-4bb7-a638-31e917451574",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "03ccf497-292c-47b3-8d21-16c495c62965",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "98410362-4a9c-4665-aa2a-e2813d919271",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "326ddb63-5954-446b-83c3-5a48b885980f",
+      "expenseDate": "2025-12-18T14:00:00.000Z",
+      "createdAt": "2025-12-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "8fe3cc24-a5cd-45c6-a342-19a9e3d30715",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "223f36c4-1183-4389-9b23-f26ddc359082",
+      "expenseDate": "2025-12-25T17:45:00.000Z",
+      "createdAt": "2025-12-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "89ed41e8-aabf-4d79-a71f-a5b39fb66b41",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "9cc03f2c-af0f-4412-8393-99e0b8c48331",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "fa46e6d5-68c8-405c-95f7-4b6d973d0638",
+      "expenseDate": "2025-12-28T16:00:00.000Z",
+      "createdAt": "2025-12-28T16:05:00.000Z",
+      "category": "Beverages",
+      "totalAmount": 300,
+      "myShare": 150,
+      "remark": "Evening drinks [₹150 auto-deducted from Alice's wallet]",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "67fded86-009f-4bdc-8bd4-ba2f3846c20d",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "2875daab-82bd-44ed-bfe4-66e656644bc3",
+      "expenseDate": "2025-12-29T21:10:00.000Z",
+      "createdAt": "2025-12-29T21:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 300,
+      "remark": "Takeout meal [Used remaining ₹150 wallet credit for Bob]",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "a076bc7b-41b3-4caf-acf1-79474cc95fea",
+            "name": "Bob",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "575a4c08-dd53-4d13-ac53-1eea948b3f94",
+      "expenseDate": "2026-01-03T09:30:00.000Z",
+      "createdAt": "2026-01-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "3b07089e-38fe-4674-a2d2-2386165c4a31",
+      "expenseDate": "2026-01-10T18:15:00.000Z",
+      "createdAt": "2026-01-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "b673d929-532a-4b47-8603-4962b7bf016b",
+      "expenseDate": "2026-01-15T08:45:00.000Z",
+      "createdAt": "2026-01-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "2e06d9a6-45b0-4eb1-9e8a-ebb3c5848d33",
+      "expenseDate": "2026-01-22T13:20:00.000Z",
+      "createdAt": "2026-01-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "7ad2548b-742c-4914-8fa5-0e4bec3c63f4",
+      "expenseDate": "2026-01-05T20:00:00.000Z",
+      "createdAt": "2026-01-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "2280f704-195a-499a-9e6d-dc461ccdb61e",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "24470a33-58e8-4227-a4dc-462ee48de19c",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "a77ddd2a-3e8c-4587-8820-92d31b5c307a",
+      "expenseDate": "2026-01-12T19:30:00.000Z",
+      "createdAt": "2026-01-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "99d980df-2ec5-4a75-a304-1e6d0483ada5",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "f8895edb-df1a-4db9-89a0-e2108fbcb78c",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "82081dfb-ed73-47a3-81ac-c16d9d99374f",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "d28eeed6-769e-4a8c-a713-89d0037c97ec",
+      "expenseDate": "2026-01-18T14:00:00.000Z",
+      "createdAt": "2026-01-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "134803f4-874b-4514-b544-57144fb7c124",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "e9cbfc8a-1fe9-4376-a47e-aa6d6040800d",
+      "expenseDate": "2026-01-25T17:45:00.000Z",
+      "createdAt": "2026-01-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "0e0f8b6d-3479-4e38-81b4-ebcbb41e0ebe",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "46bb4442-5aa1-4b84-b79d-aba949c70871",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "a21ffe18-c4b1-49fc-99dc-c97253441562",
+      "expenseDate": "2026-02-03T09:30:00.000Z",
+      "createdAt": "2026-02-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "3f706438-d50a-4330-8a2e-7124ff9e74c4",
+      "expenseDate": "2026-02-10T18:15:00.000Z",
+      "createdAt": "2026-02-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "fadcfa7c-cdb2-449e-9759-0726cb558850",
+      "expenseDate": "2026-02-15T08:45:00.000Z",
+      "createdAt": "2026-02-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "570903e9-bde4-400c-a125-24439f6ac522",
+      "expenseDate": "2026-02-22T13:20:00.000Z",
+      "createdAt": "2026-02-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "4d63668b-5ef8-44eb-b535-6fca420cccbd",
+      "expenseDate": "2026-02-05T20:00:00.000Z",
+      "createdAt": "2026-02-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "6004dafa-bf90-49d8-9fb3-7f1ba7274728",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "03f38ec6-bcf6-4084-8a35-835e9808baa2",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "aaf7272d-8c0d-4ad2-8be3-c24862f473fb",
+      "expenseDate": "2026-02-12T19:30:00.000Z",
+      "createdAt": "2026-02-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "ce5b328e-cb5c-4aca-98d1-51c59b06c703",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "2daec7c8-50b5-4120-806c-fdc3ef9a2794",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "fc7cb81f-4edd-44b1-ae23-76d5fe0d19fb",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "ea5c4995-a65c-48d4-8ef0-5accd65a3b99",
+      "expenseDate": "2026-02-18T14:00:00.000Z",
+      "createdAt": "2026-02-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "e6de7e75-04ab-4c07-8e93-3981c1f98d2b",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "702dc67a-2621-48dd-969a-c1117b51fb44",
+      "expenseDate": "2026-02-25T17:45:00.000Z",
+      "createdAt": "2026-02-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "18a24dfa-8c66-4aaf-b9b6-66b3cd7dabe6",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "ff3d54bc-7a5b-400e-9476-c36f20dac836",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "49a043fd-4dc1-4d5c-85ce-79d7d3580a4d",
+      "expenseDate": "2026-03-03T09:30:00.000Z",
+      "createdAt": "2026-03-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "adea4eab-7b27-4f62-9ac6-3cacdac9e7d6",
+      "expenseDate": "2026-03-10T18:15:00.000Z",
+      "createdAt": "2026-03-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "7e0b4970-422b-4053-8e37-dad7b2737081",
+      "expenseDate": "2026-03-15T08:45:00.000Z",
+      "createdAt": "2026-03-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "d5b7477c-f3d4-4983-a9fc-b4d8e33cdc8c",
+      "expenseDate": "2026-03-22T13:20:00.000Z",
+      "createdAt": "2026-03-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "813ce303-89ee-439a-a17a-b73ed14d7662",
+      "expenseDate": "2026-03-05T20:00:00.000Z",
+      "createdAt": "2026-03-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "e6225ca4-1c70-47cd-af3d-4a0883cf323c",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "7a2ed453-9d76-430f-a088-16cf7832c0b7",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "bb898df0-7106-4e7c-8d9d-d1b77bfc179e",
+      "expenseDate": "2026-03-12T19:30:00.000Z",
+      "createdAt": "2026-03-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "f6a3385c-f02a-4623-9dad-791576bb97c3",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "f5fcd59d-745f-4d48-b6b0-87a6f2dfe8dd",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "18541ca0-b236-430f-8268-583e3668eb70",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "7917a5d2-aa84-4b55-a204-4b904d5ce9dd",
+      "expenseDate": "2026-03-18T14:00:00.000Z",
+      "createdAt": "2026-03-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "edfa260a-5919-4e3c-9fa0-3313752951e3",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "44988f2b-0d5d-41e0-ba8a-6147bb2c1f90",
+      "expenseDate": "2026-03-25T17:45:00.000Z",
+      "createdAt": "2026-03-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "fd090d6b-7550-4d44-8ab8-0330701eabb4",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "a17d4f8d-2779-4c26-9156-5b764e1eaba4",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "c0266cf5-36fe-4d4e-91ca-c73e0a8f5574",
+      "expenseDate": "2026-03-28T16:00:00.000Z",
+      "createdAt": "2026-03-28T16:05:00.000Z",
+      "category": "Beverages",
+      "totalAmount": 300,
+      "myShare": 150,
+      "remark": "Evening drinks [₹150 auto-deducted from Alice's wallet]",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "59316826-df51-4cb0-a2a2-4d2e569ef520",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "053bb749-fab7-41d7-ae97-20e4524098c6",
+      "expenseDate": "2026-03-29T21:10:00.000Z",
+      "createdAt": "2026-03-29T21:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 300,
+      "remark": "Takeout meal [Used remaining ₹150 wallet credit for Bob]",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "5f64c49d-caab-4a64-b68e-17f6b749fb33",
+            "name": "Bob",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "a7bb6db2-67ff-4775-b0f2-2746dbf72986",
+      "expenseDate": "2026-04-03T09:30:00.000Z",
+      "createdAt": "2026-04-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "c9f3f685-0478-4050-8cc5-ac7cf9e8428d",
+      "expenseDate": "2026-04-10T18:15:00.000Z",
+      "createdAt": "2026-04-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "821e1b63-2150-4267-af96-600710958a63",
+      "expenseDate": "2026-04-15T08:45:00.000Z",
+      "createdAt": "2026-04-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "f0f0e756-a7e8-4ed7-9bfc-c943643dc7f4",
+      "expenseDate": "2026-04-22T13:20:00.000Z",
+      "createdAt": "2026-04-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "ff090bc0-586a-4b52-bdc8-59c3190b9181",
+      "expenseDate": "2026-04-05T20:00:00.000Z",
+      "createdAt": "2026-04-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "2d0abdf4-52a9-46c7-a4bf-956db2b115f8",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "86e67d5e-8c7b-4842-9186-0be43b2da29a",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "5bbe1336-2624-41ae-9458-d28d66391905",
+      "expenseDate": "2026-04-12T19:30:00.000Z",
+      "createdAt": "2026-04-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "77969e5c-8404-4451-9d93-87ee648d71c5",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "ee90d805-6592-489e-bfd1-20eb35ea102e",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "1be7f241-2c99-43bb-ab4d-e70223454454",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "3402dd1b-928b-4750-a332-f4057397aaf6",
+      "expenseDate": "2026-04-18T14:00:00.000Z",
+      "createdAt": "2026-04-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "7edda8a5-0de4-4168-b65a-f62395206cb3",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "cfe145f0-fecf-4c98-99af-aa16ddba44ac",
+      "expenseDate": "2026-04-25T17:45:00.000Z",
+      "createdAt": "2026-04-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "0c186298-5ec2-4b6a-8ea8-ccd0ca998c77",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "aa00b5df-54fb-4dc0-b3f7-5cd26036ecc6",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "5c8cd8ee-bd6f-4324-9df0-53bac58a26c3",
+      "expenseDate": "2026-04-12T10:00:00.000Z",
+      "createdAt": "2026-04-12T10:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 4500,
+      "myShare": 4500,
+      "remark": "Trekking gear, thermal layers, and boots",
+      "paymentMode": "Card",
+      "isSplit": false,
+      "eventId": "event-himalayas-trek"
+    },
+    {
+      "id": "245913e6-d940-4712-ab33-5a15c6393078",
+      "expenseDate": "2026-04-20T14:00:00.000Z",
+      "createdAt": "2026-04-20T14:10:00.000Z",
+      "category": "Activity",
+      "totalAmount": 15000,
+      "myShare": 5000,
+      "remark": "Himalayas Basecamp registration & guide fees",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "eventId": "event-himalayas-trek",
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "6c958464-a6a7-4b9e-a576-a036d24fff45",
+            "name": "David",
+            "shareAmount": 5000,
+            "hasPaid": true
+          },
+          {
+            "id": "f8cbd79e-5f69-4e91-8946-d3e748706bd3",
+            "name": "Frank",
+            "shareAmount": 5000,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "fc933d6b-4965-4100-9518-78e5bb3a795e",
+      "expenseDate": "2026-05-03T09:30:00.000Z",
+      "createdAt": "2026-05-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "cb6527ee-332d-4347-81e4-983cd21e8990",
+      "expenseDate": "2026-05-10T18:15:00.000Z",
+      "createdAt": "2026-05-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "bffc4083-87ff-404a-b68d-6b5012cf432e",
+      "expenseDate": "2026-05-15T08:45:00.000Z",
+      "createdAt": "2026-05-15T08:50:00.000Z",
+      "category": "Fuel",
+      "totalAmount": 800,
+      "myShare": 800,
+      "remark": "Petrol auto-refuel",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "a4dcb1c0-cbb1-42bf-9bfd-bcede332961b",
+      "expenseDate": "2026-05-22T13:20:00.000Z",
+      "createdAt": "2026-05-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "9eb58cd8-96ed-4bd3-8a01-83c0f71f2928",
+      "expenseDate": "2026-05-05T20:00:00.000Z",
+      "createdAt": "2026-05-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "de01ff53-b10b-416e-a0d0-e57a5e37e678",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "1f504b6b-71e0-4210-9761-2afcc0e3b9be",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "32684d31-aa10-453f-ab2f-d6d3c0a17a53",
+      "expenseDate": "2026-05-12T19:30:00.000Z",
+      "createdAt": "2026-05-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "915de25d-d89d-4035-a452-7d9a5d145582",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "7586f2da-53a5-40d2-9034-9bbd99a640ad",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "9f8ab042-38b8-46a5-883e-9ecc393d9bdb",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "8ead874c-c9a4-4531-ac14-2c03e3cc0eb1",
+      "expenseDate": "2026-05-18T14:00:00.000Z",
+      "createdAt": "2026-05-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "aa5181f2-8955-4951-8a34-69111d58c31b",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "9030ab93-f43c-4d46-b7e7-d0a5c3d04da0",
+      "expenseDate": "2026-05-25T17:45:00.000Z",
+      "createdAt": "2026-05-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "664f8031-d924-4fe9-b44f-34415500b8eb",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "7bc945c6-ddba-4319-9104-f69331b8f9e2",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "15b04d9c-08bb-4f51-b356-69c4c65405f9",
+      "expenseDate": "2026-05-02T08:30:00.000Z",
+      "createdAt": "2026-05-02T08:45:00.000Z",
+      "category": "Stay",
+      "totalAmount": 6000,
+      "myShare": 2000,
+      "remark": "Basecamp tents & sleeping bag rentals",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "eventId": "event-himalayas-trek",
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "07bf46be-cb35-41a1-9bf0-fff09591259e",
+            "name": "David",
+            "shareAmount": 2000,
+            "hasPaid": true
+          },
+          {
+            "id": "a6b5b29a-df69-4323-aff7-cb5c684a675d",
+            "name": "Frank",
+            "shareAmount": 2000,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "9009e736-3fa9-4062-8ff0-7f3fa14e25a1",
+      "expenseDate": "2026-05-06T19:00:00.000Z",
+      "createdAt": "2026-05-06T19:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 1800,
+      "myShare": 600,
+      "remark": "Hot mountain dinner at summit lodge",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "eventId": "event-himalayas-trek",
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "83f440f3-5250-4d90-a942-13a500b7a0d6",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true
+          },
+          {
+            "id": "42cad826-e8e7-494a-bc9c-af9c0bf37e50",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "5b3d80ee-b801-4e0a-9d11-81796c3fb524",
+      "expenseDate": "2026-06-03T09:30:00.000Z",
+      "createdAt": "2026-06-03T09:35:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 180,
+      "myShare": 180,
+      "remark": "Starbucks coffee and cookie",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "ef6f3423-f3c0-45ef-bdbb-ad6f8062ca2c",
+      "expenseDate": "2026-06-10T18:15:00.000Z",
+      "createdAt": "2026-06-10T18:30:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 1250,
+      "myShare": 1250,
+      "remark": "Weekly essentials & milk",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "22627305-7d39-4655-9ada-4ae85360b3eb",
+      "expenseDate": "2026-06-15T08:45:00.000Z",
+      "createdAt": "2026-06-15T08:50:00.000Z",
+      "category": "Metro",
+      "totalAmount": 150,
+      "myShare": 150,
+      "remark": "Metro smart card recharge",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "cdfcac89-bfbc-4d4f-94e3-6b7227e08d3c",
+      "expenseDate": "2026-06-22T13:20:00.000Z",
+      "createdAt": "2026-06-22T13:30:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 320,
+      "myShare": 320,
+      "remark": "Subway meal combo",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "d6a867b7-2576-445a-9b95-8151ff849f81",
+      "expenseDate": "2026-06-05T20:00:00.000Z",
+      "createdAt": "2026-06-05T20:10:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 200,
+      "remark": "Burger joint dinner with Alice and Bob",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "f8493715-86e0-44a0-955a-b2b59819fbd9",
+            "name": "Alice",
+            "shareAmount": 200,
+            "hasPaid": true
+          },
+          {
+            "id": "9597e118-5d1e-4e94-8df2-f82cbff0a1a7",
+            "name": "Bob",
+            "shareAmount": 200,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "f8d509ad-a43d-494f-b9de-f012ead36859",
+      "expenseDate": "2026-06-12T19:30:00.000Z",
+      "createdAt": "2026-06-12T20:00:00.000Z",
+      "category": "Entertainment",
+      "totalAmount": 1200,
+      "myShare": 300,
+      "remark": "Movie tickets booking",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "4075ee35-8eea-44cb-bf54-b091662a4bf6",
+            "name": "Alice",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "85f9927b-d833-48c6-ba8d-d72c5b2b2237",
+            "name": "Bob",
+            "shareAmount": 300,
+            "hasPaid": true
+          },
+          {
+            "id": "9da228ac-958f-4ace-a8ab-52d36c2a7d59",
+            "name": "Charlie",
+            "shareAmount": 300,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "6b9f9202-dcc3-462a-a9cf-d708113a4ed4",
+      "expenseDate": "2026-06-18T14:00:00.000Z",
+      "createdAt": "2026-06-18T14:15:00.000Z",
+      "category": "Shopping",
+      "totalAmount": 1000,
+      "myShare": 400,
+      "remark": "Department store shared purchases",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "25b0704d-b08f-4454-9c58-f11da7897cb0",
+            "name": "David",
+            "shareAmount": 600,
+            "hasPaid": true,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "83ef7395-40b2-4196-bdea-4dc224866952",
+      "expenseDate": "2026-06-25T17:45:00.000Z",
+      "createdAt": "2026-06-25T18:00:00.000Z",
+      "category": "Others",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Group gift for friend",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "34a3d8e7-90b2-405c-8369-4387686ab506",
+            "name": "Eva",
+            "shareAmount": 400,
+            "hasPaid": true,
+            "isCustomShare": true
+          },
+          {
+            "id": "0ba329b6-0ebb-4c21-9f64-0140d041da57",
+            "name": "Frank",
+            "shareAmount": 600,
+            "hasPaid": false,
+            "isCustomShare": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "b1fbde08-11bf-48ed-a101-e034bd53ed62",
+      "expenseDate": "2026-06-28T16:00:00.000Z",
+      "createdAt": "2026-06-28T16:05:00.000Z",
+      "category": "Beverages",
+      "totalAmount": 300,
+      "myShare": 150,
+      "remark": "Evening drinks [₹150 auto-deducted from Alice's wallet]",
+      "paymentMode": "Cash",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": true,
+        "participants": [
+          {
+            "id": "fe1659e8-48c6-463b-9083-677aeca7ffb1",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "de97cd44-21f4-465c-abe8-1e0c5bde84aa",
+      "expenseDate": "2026-06-29T21:10:00.000Z",
+      "createdAt": "2026-06-29T21:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 600,
+      "myShare": 300,
+      "remark": "Takeout meal [Used remaining ₹150 wallet credit for Bob]",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "88967537-8ade-4259-ab3b-062ef285498f",
+            "name": "Bob",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "73fd6da6-cd9a-4497-8c38-11b7f82e6f96",
+      "expenseDate": "2026-06-05T12:10:00.000Z",
+      "createdAt": "2026-06-05T12:15:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 280,
+      "myShare": 280,
+      "remark": "Lunch at office canteen",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "6c3f7f1a-7f0b-44aa-ae11-5439b64ec295",
+      "expenseDate": "2026-06-12T19:00:00.000Z",
+      "createdAt": "2026-06-12T19:10:00.000Z",
+      "category": "Grocery",
+      "totalAmount": 980,
+      "myShare": 980,
+      "remark": "Weekend grocery store trip",
+      "paymentMode": "Card",
+      "isSplit": false
+    },
+    {
+      "id": "f782fb46-ebc2-4cdd-a0b3-0bb818663da9",
+      "expenseDate": "2026-06-15T16:00:00.000Z",
+      "createdAt": "2026-06-15T16:10:00.000Z",
+      "category": "Snacks",
+      "totalAmount": 450,
+      "myShare": 150,
+      "remark": "Evening cafe team snacks",
+      "paymentMode": "UPI",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "f644f698-f746-4090-adcf-a67a464fcea6",
+            "name": "Alice",
+            "shareAmount": 150,
+            "hasPaid": true
+          },
+          {
+            "id": "f153e485-4572-47fa-b5cb-ec50663ba50c",
+            "name": "Charlie",
+            "shareAmount": 150,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "a1f594bc-2013-47e3-854c-62f591309e8f",
+      "expenseDate": "2026-06-21T10:30:00.000Z",
+      "createdAt": "2026-06-21T10:35:00.000Z",
+      "category": "Breakfast",
+      "totalAmount": 160,
+      "myShare": 160,
+      "remark": "Sunday brunch tea & toast",
+      "paymentMode": "Cash",
+      "isSplit": false
+    },
+    {
+      "id": "2e2f5a52-a0fa-4bc2-8f32-9cfbd8fdf791",
+      "expenseDate": "2026-06-22T14:00:00.000Z",
+      "createdAt": "2026-06-22T14:05:00.000Z",
+      "category": "Lunch",
+      "totalAmount": 350,
+      "myShare": 350,
+      "remark": "Executive lunch thali",
+      "paymentMode": "UPI",
+      "isSplit": false
+    },
+    {
+      "id": "fb4fbdec-af4e-46e5-a1d6-665093334cb6",
+      "expenseDate": "2026-06-23T20:15:00.000Z",
+      "createdAt": "2026-06-23T20:20:00.000Z",
+      "category": "Dinner",
+      "totalAmount": 1500,
+      "myShare": 500,
+      "remark": "Pre-birthday celebration dinner with Alice and Charlie",
+      "paymentMode": "Card",
+      "isSplit": true,
+      "splitDetails": {
+        "isSettled": false,
+        "participants": [
+          {
+            "id": "69944d60-d312-419d-8132-415686506038",
+            "name": "Alice",
+            "shareAmount": 500,
+            "hasPaid": true
+          },
+          {
+            "id": "866f8bbd-efb4-47eb-95d9-9fe8ff9c28ca",
+            "name": "Charlie",
+            "shareAmount": 500,
+            "hasPaid": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "34b295a4-f86e-4176-ae09-04fd92fb98b3",
+      "expenseDate": "2026-06-24T09:00:00.000Z",
+      "createdAt": "2026-06-24T09:05:00.000Z",
+      "category": "Metro",
+      "totalAmount": 80,
+      "myShare": 80,
+      "remark": "Commute to work",
+      "paymentMode": "UPI",
+      "isSplit": false
+    }
+  ],
+  "events": [
+    {
+      "id": "event-goa-2025",
+      "name": "Goa Trip 2025",
+      "startDate": "2025-05-10",
+      "isActive": false
+    },
+    {
+      "id": "event-office-retreat",
+      "name": "Office Retreat 2025",
+      "startDate": "2025-10-15",
+      "isActive": false
+    },
+    {
+      "id": "event-himalayas-trek",
+      "name": "Himalayas Trek 2026",
+      "startDate": "2026-04-12",
+      "isActive": true
+    }
+  ],
+  "wallets": [
+    {
+      "name": "alice",
+      "creditBalance": 750
+    },
+    {
+      "name": "bob",
+      "creditBalance": 150
+    },
+    {
+      "name": "charlie",
+      "creditBalance": 0
+    },
+    {
+      "name": "david",
+      "creditBalance": 300
+    }
+  ],
+  "categories": [
+    "Breakfast",
+    "Lunch",
+    "Dinner",
+    "Grocery",
+    "Metro",
+    "Fruits",
+    "Snacks",
+    "Stay",
+    "Activity",
+    "Shopping",
+    "Entertainment",
+    "Beverages",
+    "Fuel",
+    "Others"
+  ],
+  "regularMembers": [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "David",
+    "Eva",
+    "Frank"
+  ]
+}
