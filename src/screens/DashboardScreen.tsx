@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch, Alert, Pla
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/types';
 import { ExpenseCategory, ExpenseLog, SplitParticipant } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { startOfWeek, startOfMonth, isAfter, parseISO, format } from 'date-fns';
@@ -11,6 +13,9 @@ import { ExpenseForm } from '../components/ExpenseForm';
 import { StorageService } from '../services/StorageService';
 
 export const DashboardScreen = () => {
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
   const { expenses, addExpense } = useExpenses();
   const [isHistoryExpanded, setIsHistoryExpanded] = useState(false);
 
@@ -66,7 +71,7 @@ export const DashboardScreen = () => {
       >
         <View style={styles.cardHeaderRow}>
           <Text style={styles.cardTitle}>Analytics (My Share)</Text>
-          <Ionicons name={isHistoryExpanded ? "chevron-up" : "chevron-down"} size={20} color="#718096" />
+          <Ionicons name={isHistoryExpanded ? "chevron-up" : "chevron-down"} size={20} color={theme.textMuted} />
         </View>
 
         <View style={styles.row}>
@@ -161,17 +166,17 @@ export const DashboardScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: theme.background,
   },
   content: {
     padding: 16,
     paddingBottom: 200,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -180,6 +185,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   cardHeaderRow: {
     flexDirection: 'row',
@@ -190,7 +197,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: theme.textPrimary,
   },
   row: {
     flexDirection: 'row',
@@ -200,146 +207,30 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 10,
-    backgroundColor: '#F0F4F8',
+    backgroundColor: theme.surface,
     borderRadius: 8,
     marginHorizontal: 4,
   },
   metricLabel: {
     fontSize: 12,
-    color: '#666',
+    color: theme.textSecondary,
   },
   metricValue: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#1A365D',
+    color: theme.primary,
     marginTop: 4,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 12,
-    backgroundColor: '#FAFAFA',
-  },
-  dateTimeRow: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  dateInput: {
-    flex: 1,
-  },
-  timeInput: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  clearTimeBtn: {
-    padding: 2,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#4A5568',
-    marginBottom: 8,
-    marginTop: 4,
-  },
-  chipContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginBottom: 16,
-  },
-  chip: {
-    backgroundColor: '#EDF2F7',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  chipActive: {
-    backgroundColor: '#4299E1',
-  },
-  chipText: {
-    color: '#4A5568',
-    fontSize: 12,
-  },
-  chipTextActive: {
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
-  switchRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  splitContainer: {
-    backgroundColor: '#F7FAFC',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  participantRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: 8,
-  },
-  flex1: {
-    flex: 1,
-    marginBottom: 0,
-    marginRight: 8,
-  },
-  computedShareText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#2D3748',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  deleteBtn: {
-    backgroundColor: '#FED7D7',
-    width: 32,
-    height: 32,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 16,
-  },
-  deleteBtnText: {
-    color: '#C53030',
-    fontWeight: 'bold',
-  },
-  addParticipantBtn: {
-    alignItems: 'center',
-    padding: 8,
-  },
-  addParticipantText: {
-    color: '#3182CE',
-    fontWeight: 'bold',
-  },
-  saveBtn: {
-    backgroundColor: '#48BB78',
-    padding: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  saveBtnText: {
-    color: '#FFF',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
   historySection: {
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
-    borderTopColor: '#EDF2F7',
+    borderTopColor: theme.cardBorder,
   },
   historyTitle: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#4A5568',
+    color: theme.textSecondary,
     marginBottom: 12,
   },
   historyRow: {
@@ -349,27 +240,27 @@ const styles = StyleSheet.create({
   },
   historyLabel: {
     fontSize: 14,
-    color: '#4A5568',
+    color: theme.textSecondary,
   },
   historyValue: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   grandTotalRow: {
     marginTop: 8,
     paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#E2E8F0',
+    borderTopColor: theme.cardBorder,
   },
   grandTotalLabel: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   grandTotalValue: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#3182CE',
+    color: theme.primary,
   },
 });

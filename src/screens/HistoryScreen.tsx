@@ -1,6 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, SectionList, TouchableOpacity, Alert, Modal, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/types';
 import { ExpenseLog, SplitParticipant, PaymentMode, UserWallet } from '../types';
 import { parseISO, format } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
@@ -56,6 +58,8 @@ const getPendingBalances = (expenses: ExpenseLog[]): DebtorSummary[] => {
 };
 
 export const HistoryScreen = () => {
+  const { theme, mode } = useTheme();
+  const styles = getStyles(theme);
   const { expenses, updateExpense, deleteExpense, events, setAllExpenses, activeEvent, categories: contextCategories } = useExpenses();
   const [layoutMode, setLayoutMode] = useState<'detailed' | 'short'>('detailed');
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
@@ -480,7 +484,7 @@ export const HistoryScreen = () => {
         )}
       </View>
       <TouchableOpacity 
-        style={[styles.recordPaymentBtn, item.totalOwed === 0 && { backgroundColor: '#A0AEC0' }]} 
+        style={[styles.recordPaymentBtn, item.totalOwed === 0 && { backgroundColor: theme.textMuted }]} 
         onPress={() => item.totalOwed > 0 && openDebtorSettlement(item)}
         disabled={item.totalOwed === 0}
       >
@@ -560,14 +564,14 @@ export const HistoryScreen = () => {
                   style={styles.shortActionBtn}
                   onPress={() => setEditingExpense(item)}
                 >
-                  <Ionicons name="pencil" size={16} color="#4A5568" style={{ marginRight: 4 }} />
+                  <Ionicons name="pencil" size={16} color={theme.textSecondary} style={{ marginRight: 4 }} />
                   <Text style={styles.shortActionBtnText}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.shortActionBtn, styles.shortDeleteBtn]}
                   onPress={() => handleDelete(item.id)}
                 >
-                  <Ionicons name="trash" size={16} color="#E53E3E" style={{ marginRight: 4 }} />
+                  <Ionicons name="trash" size={16} color={theme.danger} style={{ marginRight: 4 }} />
                   <Text style={[styles.shortActionBtnText, styles.shortDeleteText]}>Delete</Text>
                 </TouchableOpacity>
               </View>
@@ -591,10 +595,10 @@ export const HistoryScreen = () => {
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={styles.dateText}>{format(parseISO(item.expenseDate), 'MMM dd, yyyy')}</Text>
             <TouchableOpacity onPress={() => setEditingExpense(item)} style={{ marginLeft: 16 }}>
-              <Ionicons name="pencil" size={18} color="#4A5568" />
+              <Ionicons name="pencil" size={18} color={theme.textSecondary} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleDelete(item.id)} style={{ marginLeft: 16 }}>
-              <Ionicons name="trash" size={18} color="#E53E3E" />
+              <Ionicons name="trash" size={18} color={theme.danger} />
             </TouchableOpacity>
           </View>
         </View>
@@ -653,11 +657,11 @@ export const HistoryScreen = () => {
         {viewMode === 'FULL_LOG' && (
           <View style={styles.searchFilterRow}>
             <View style={styles.searchBarWrapper}>
-              <Ionicons name="search" size={18} color="#A0AEC0" style={styles.searchIcon} />
+              <Ionicons name="search" size={18} color={theme.textMuted} style={styles.searchIcon} />
               <TextInput
                 style={styles.searchBar}
                 placeholder="Search remarks or amounts..."
-                placeholderTextColor="#A0AEC0"
+                placeholderTextColor={theme.textMuted}
                 value={activeFilters.searchQuery}
                 onChangeText={(text) => setActiveFilters(prev => ({ ...prev, searchQuery: text }))}
               />
@@ -666,7 +670,7 @@ export const HistoryScreen = () => {
                   onPress={() => setActiveFilters(prev => ({ ...prev, searchQuery: '' }))}
                   style={styles.clearSearchBtn}
                 >
-                  <Ionicons name="close-circle" size={18} color="#A0AEC0" />
+                  <Ionicons name="close-circle" size={18} color={theme.textMuted} />
                 </TouchableOpacity>
               )}
             </View>
@@ -777,7 +781,7 @@ export const HistoryScreen = () => {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Advanced Filters</Text>
               <TouchableOpacity onPress={() => setFilterModalVisible(false)} style={styles.closeButton}>
-                <Ionicons name="close" size={24} color="#4A5568" />
+                <Ionicons name="close" size={24} color={theme.textSecondary} />
               </TouchableOpacity>
             </View>
 
@@ -854,7 +858,7 @@ export const HistoryScreen = () => {
                       style={styles.dateButton} 
                       onPress={() => setShowStartPicker(true)}
                     >
-                      <Ionicons name="calendar-outline" size={18} color="#4A5568" style={{ marginRight: 8 }} />
+                      <Ionicons name="calendar-outline" size={18} color={theme.textSecondary} style={{ marginRight: 8 }} />
                       <Text style={styles.dateButtonText}>
                         {tempStartDate ? tempStartDate : 'Select Start Date'}
                       </Text>
@@ -864,7 +868,7 @@ export const HistoryScreen = () => {
                         style={styles.clearDateIcon} 
                         onPress={() => setTempStartDate(null)}
                       >
-                        <Ionicons name="close-circle" size={18} color="#A0AEC0" />
+                        <Ionicons name="close-circle" size={18} color={theme.textMuted} />
                       </TouchableOpacity>
                     )}
                   </View>
@@ -877,7 +881,7 @@ export const HistoryScreen = () => {
                       style={styles.dateButton} 
                       onPress={() => setShowEndPicker(true)}
                     >
-                      <Ionicons name="calendar-outline" size={18} color="#4A5568" style={{ marginRight: 8 }} />
+                      <Ionicons name="calendar-outline" size={18} color={theme.textSecondary} style={{ marginRight: 8 }} />
                       <Text style={styles.dateButtonText}>
                         {tempEndDate ? tempEndDate : 'Select End Date'}
                       </Text>
@@ -887,7 +891,7 @@ export const HistoryScreen = () => {
                         style={styles.clearDateIcon} 
                         onPress={() => setTempEndDate(null)}
                       >
-                        <Ionicons name="close-circle" size={18} color="#A0AEC0" />
+                        <Ionicons name="close-circle" size={18} color={theme.textMuted} />
                       </TouchableOpacity>
                     )}
                   </View>
@@ -900,6 +904,7 @@ export const HistoryScreen = () => {
                   mode="date"
                   display="default"
                   onChange={onChangeStartDate}
+                  themeVariant={mode}
                 />
               )}
 
@@ -909,6 +914,7 @@ export const HistoryScreen = () => {
                   mode="date"
                   display="default"
                   onChange={onChangeEndDate}
+                  themeVariant={mode}
                 />
               )}
             </ScrollView>
@@ -932,10 +938,10 @@ export const HistoryScreen = () => {
         animationType="slide"
         onRequestClose={() => setEditingExpense(null)}
       >
-        <View style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
+        <View style={{ flex: 1, backgroundColor: theme.background }}>
           <View style={styles.modalHeaderFullScreen}>
             <TouchableOpacity onPress={() => setEditingExpense(null)}>
-              <Ionicons name="arrow-back" size={24} color="#2D3748" />
+              <Ionicons name="arrow-back" size={24} color={theme.textPrimary} />
             </TouchableOpacity>
             <Text style={styles.modalTitleFullScreen}>Edit Expense</Text>
             <View style={{ width: 24 }} />
@@ -971,7 +977,7 @@ export const HistoryScreen = () => {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Settlement Details</Text>
               <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
-                <Ionicons name="close" size={24} color="#4A5568" />
+                <Ionicons name="close" size={24} color={theme.textSecondary} />
               </TouchableOpacity>
             </View>
 
@@ -1034,12 +1040,12 @@ export const HistoryScreen = () => {
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Record Payment from {selectedDebtor?.name}</Text>
               <TouchableOpacity onPress={() => setSettlementModalVisible(false)} style={styles.closeButton}>
-                <Ionicons name="close" size={24} color="#4A5568" />
+                <Ionicons name="close" size={24} color={theme.textSecondary} />
               </TouchableOpacity>
             </View>
 
             <View style={{ marginBottom: 20 }}>
-              <Text style={{ fontSize: 14, color: '#718096', marginBottom: 8 }}>
+              <Text style={{ fontSize: 14, color: theme.textMuted, marginBottom: 8 }}>
                 Amount Received
               </Text>
               <TextInput
@@ -1049,7 +1055,7 @@ export const HistoryScreen = () => {
                 onChangeText={setSettlementAmount}
                 placeholder="Enter amount"
               />
-              <Text style={{ fontSize: 12, color: '#E53E3E', marginTop: 8, fontStyle: 'italic' }}>
+              <Text style={{ fontSize: 12, color: theme.danger, marginTop: 8, fontStyle: 'italic' }}>
                 Note: This payment will automatically settle their oldest debts first.
               </Text>
             </View>
@@ -1065,37 +1071,37 @@ export const HistoryScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: theme.background,
   },
   viewModeContainer: {
     flexDirection: 'row',
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderBottomWidth: 1,
-    borderBottomColor: '#EDF2F7',
+    borderBottomColor: theme.surface,
     gap: 8,
   },
   viewModeChip: {
     flex: 1,
     paddingVertical: 10,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
   },
   viewModeChipActive: {
-    backgroundColor: '#2D3748',
+    backgroundColor: theme.textPrimary,
   },
   viewModeText: {
     fontSize: 14,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: '600',
   },
   viewModeTextActive: {
-    color: '#FFFFFF',
+    color: theme.card,
   },
   listContent: {
     paddingTop: 8,
@@ -1109,11 +1115,11 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#718096',
+    color: theme.textMuted,
     textAlign: 'center',
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -1133,34 +1139,34 @@ const styles = StyleSheet.create({
   debtorName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   recordPaymentBtn: {
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
     paddingVertical: 10,
     borderRadius: 8,
     alignItems: 'center',
   },
   recordPaymentText: {
-    color: '#FFFFFF',
+    color: theme.card,
     fontWeight: '600',
     fontSize: 14,
   },
   amountInput: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     padding: 12,
     borderRadius: 8,
     fontSize: 16,
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   confirmSettlementBtn: {
-    backgroundColor: '#48BB78',
+    backgroundColor: theme.success,
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
   },
   confirmSettlementText: {
-    color: '#FFFFFF',
+    color: theme.card,
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -1171,19 +1177,19 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   categoryBadge: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 16,
   },
   categoryText: {
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontSize: 12,
     fontWeight: 'bold',
   },
   dateText: {
     fontSize: 12,
-    color: '#A0AEC0',
+    color: theme.textMuted,
   },
   amountRow: {
     flexDirection: 'row',
@@ -1194,7 +1200,7 @@ const styles = StyleSheet.create({
   amountText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   splitBadge: {
     paddingVertical: 4,
@@ -1202,24 +1208,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   unsettledBadge: {
-    backgroundColor: '#FEFCBF',
+    backgroundColor: theme.surface,
   },
   settledBadge: {
-    backgroundColor: '#E6FFFA',
+    backgroundColor: theme.surface,
   },
   splitBadgeText: {
     fontSize: 12,
     fontWeight: 'bold',
   },
   unsettledText: {
-    color: '#B7791F',
+    color: theme.textSecondary,
   },
   settledText: {
-    color: '#319795',
+    color: theme.textSecondary,
   },
   remarkText: {
     fontSize: 14,
-    color: '#718096',
+    color: theme.textMuted,
     marginBottom: 12,
     fontStyle: 'italic',
   },
@@ -1228,29 +1234,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#EDF2F7',
+    borderTopColor: theme.surface,
     paddingTop: 12,
   },
   myShareLabel: {
     fontSize: 14,
-    color: '#4A5568',
+    color: theme.textSecondary,
     marginRight: 8,
   },
   myShareValue: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#3182CE',
+    color: theme.primary,
   },
   participantsContainer: {
     marginTop: 16,
-    backgroundColor: '#F7FAFC',
+    backgroundColor: theme.surface,
     padding: 12,
     borderRadius: 8,
   },
   participantsTitle: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: '#4A5568',
+    color: theme.textSecondary,
     marginBottom: 8,
   },
   participantRow: {
@@ -1265,16 +1271,16 @@ const styles = StyleSheet.create({
   },
   participantName: {
     fontSize: 14,
-    color: '#2D3748',
+    color: theme.textPrimary,
     marginLeft: 8,
   },
   participantShare: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   paidText: {
-    color: '#A0AEC0',
+    color: theme.textMuted,
     textDecorationLine: 'line-through',
   },
   modalOverlay: {
@@ -1283,7 +1289,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
@@ -1296,12 +1302,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#EDF2F7',
+    borderBottomColor: theme.surface,
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   closeButton: {
     padding: 4,
@@ -1312,19 +1318,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     paddingTop: 48,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
+    borderBottomColor: theme.cardBorder,
   },
   modalTitleFullScreen: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   filterSection: {
     backgroundColor: '#FFF',
     borderBottomWidth: 1,
-    borderBottomColor: '#EDF2F7',
+    borderBottomColor: theme.surface,
     paddingVertical: 12,
   },
   filterScroll: {
@@ -1332,17 +1338,17 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   filterChip: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 16,
     marginRight: 8,
   },
   filterChipActive: {
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
   },
   filterChipText: {
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -1350,7 +1356,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   paymentModeBadge: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
@@ -1359,10 +1365,10 @@ const styles = StyleSheet.create({
   paymentModeText: {
     fontSize: 10,
     fontWeight: 'bold',
-    color: '#4A5568',
+    color: theme.textSecondary,
   },
   participantPaymentBadge: {
-    backgroundColor: '#E2E8F0',
+    backgroundColor: theme.cardBorder,
     paddingHorizontal: 4,
     paddingVertical: 2,
     borderRadius: 4,
@@ -1371,7 +1377,7 @@ const styles = StyleSheet.create({
   participantPaymentText: {
     fontSize: 10,
     fontWeight: '600',
-    color: '#4A5568',
+    color: theme.textSecondary,
   },
   inlineModeSelector: {
     flexDirection: 'row',
@@ -1382,42 +1388,42 @@ const styles = StyleSheet.create({
   },
   inlineModeLabel: {
     fontSize: 12,
-    color: '#718096',
+    color: theme.textMuted,
     marginRight: 8,
   },
   inlineModeChip: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
     marginRight: 6,
   },
   inlineModeChipActive: {
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
   },
   inlineModeChipText: {
     fontSize: 10,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: 'bold',
   },
   inlineModeChipTextActive: {
-    color: '#FFFFFF',
+    color: theme.card,
   },
   creditBadge: {
-    backgroundColor: '#C6F6D5',
+    backgroundColor: theme.success,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
   },
   creditBadgeText: {
     fontSize: 12,
-    color: '#276749',
+    color: theme.textPrimary,
     fontWeight: 'bold',
   },
   stickyHeaderContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderBottomWidth: 1,
-    borderBottomColor: '#EDF2F7',
+    borderBottomColor: theme.surface,
   },
   searchFilterRow: {
     flexDirection: 'row',
@@ -1430,7 +1436,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     borderRadius: 10,
     paddingHorizontal: 10,
     height: 42,
@@ -1440,7 +1446,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flex: 1,
-    color: '#2D3748',
+    color: theme.textPrimary,
     fontSize: 14,
     height: '100%',
   },
@@ -1451,13 +1457,13 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 10,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   filterButtonActive: {
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
   },
   filterActiveDot: {
     position: 'absolute',
@@ -1466,7 +1472,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#E53E3E',
+    backgroundColor: theme.danger,
   },
   layoutToggleContainer: {
     flexDirection: 'row',
@@ -1480,48 +1486,48 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 8,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     borderRadius: 8,
   },
   layoutToggleBtnActive: {
-    backgroundColor: '#2D3748',
+    backgroundColor: theme.textPrimary,
   },
   layoutToggleText: {
     fontSize: 12,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: '600',
   },
   layoutToggleTextActive: {
-    color: '#FFFFFF',
+    color: theme.card,
   },
   sectionHeaderContainer: {
-    backgroundColor: '#EBF8FF',
+    backgroundColor: theme.primaryLight,
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#BEE3F8',
+    borderBottomColor: theme.primaryLight,
     borderTopWidth: 1,
-    borderTopColor: '#E2E8F0',
+    borderTopColor: theme.cardBorder,
   },
   sectionHeaderTitle: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#2B6CB0',
+    color: theme.primary,
     textTransform: 'uppercase',
     letterSpacing: 1,
   },
   shortCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderRadius: 8,
     marginHorizontal: 16,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.cardBorder,
     overflow: 'hidden',
   },
   shortCardExpanded: {
-    borderColor: '#BEE3F8',
-    shadowColor: '#3182CE',
+    borderColor: theme.primaryLight,
+    shadowColor: theme.primary,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -1536,25 +1542,25 @@ const styles = StyleSheet.create({
   shortDate: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#718096',
+    color: theme.textMuted,
     width: 45,
   },
   shortRemark: {
     flex: 1,
     fontSize: 14,
-    color: '#2D3748',
+    color: theme.textPrimary,
     marginHorizontal: 8,
   },
   shortAmount: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   shortExpandedDetails: {
     padding: 12,
     borderTopWidth: 1,
-    borderTopColor: '#EDF2F7',
-    backgroundColor: '#F7FAFC',
+    borderTopColor: theme.surface,
+    backgroundColor: theme.surface,
   },
   shortDetailsRow: {
     flexDirection: 'row',
@@ -1564,10 +1570,10 @@ const styles = StyleSheet.create({
   },
   shortRemarkFull: {
     fontSize: 13,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontStyle: 'italic',
     marginBottom: 12,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     padding: 8,
     borderRadius: 6,
   },
@@ -1576,7 +1582,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     gap: 8,
     borderTopWidth: 1,
-    borderTopColor: '#E2E8F0',
+    borderTopColor: theme.cardBorder,
     paddingTop: 10,
   },
   shortActionBtn: {
@@ -1585,21 +1591,21 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 6,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
   },
   shortActionBtnText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#4A5568',
+    color: theme.textSecondary,
   },
   shortDeleteBtn: {
-    backgroundColor: '#FED7D7',
+    backgroundColor: theme.dangerSurface,
   },
   shortDeleteText: {
-    color: '#E53E3E',
+    color: theme.danger,
   },
   bottomSheetContent: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     maxHeight: '85%',
@@ -1616,7 +1622,7 @@ const styles = StyleSheet.create({
   filterSectionTitle: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#4A5568',
+    color: theme.textSecondary,
     marginTop: 16,
     marginBottom: 10,
     textTransform: 'uppercase',
@@ -1635,20 +1641,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
-    backgroundColor: '#F7FAFC',
+    borderColor: theme.cardBorder,
+    backgroundColor: theme.surface,
   },
   modalChipActive: {
-    backgroundColor: '#3182CE',
-    borderColor: '#3182CE',
+    backgroundColor: theme.primary,
+    borderColor: theme.primary,
   },
   modalChipText: {
     fontSize: 12,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: '500',
   },
   modalChipTextActive: {
-    color: '#FFFFFF',
+    color: theme.card,
     fontWeight: 'bold',
   },
   dateRangeContainer: {
@@ -1663,7 +1669,7 @@ const styles = StyleSheet.create({
   datePickerLabel: {
     fontSize: 11,
     fontWeight: 'bold',
-    color: '#718096',
+    color: theme.textMuted,
     marginBottom: 4,
   },
   dateRowWithClear: {
@@ -1675,16 +1681,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F7FAFC',
+    backgroundColor: theme.surface,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.cardBorder,
     borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 8,
   },
   dateButtonText: {
     fontSize: 13,
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   clearDateIcon: {
     padding: 4,
@@ -1695,34 +1701,34 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderTopWidth: 1,
-    borderTopColor: '#EDF2F7',
-    backgroundColor: '#FFFFFF',
+    borderTopColor: theme.surface,
+    backgroundColor: theme.card,
   },
   clearAllFiltersBtn: {
     flex: 1,
     paddingVertical: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#CBD5E0',
+    borderColor: theme.cardBorder,
     alignItems: 'center',
     justifyContent: 'center',
   },
   clearAllFiltersText: {
     fontSize: 14,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: '600',
   },
   applyFiltersBtn: {
     flex: 2,
     paddingVertical: 12,
     borderRadius: 8,
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
   applyFiltersText: {
     fontSize: 14,
-    color: '#FFFFFF',
+    color: theme.card,
     fontWeight: 'bold',
   },
 });

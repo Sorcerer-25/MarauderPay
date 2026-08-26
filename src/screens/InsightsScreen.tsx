@@ -2,6 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Modal, Alert, Platform } from 'react-native';
 import { BarChart, PieChart } from 'react-native-chart-kit';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/types';
 import { parseISO, format, getYear, getMonth, startOfMonth, endOfMonth, eachWeekOfInterval, isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetSelector } from '../components/BottomSheetSelector';
@@ -11,17 +13,20 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 const screenWidth = Dimensions.get('window').width;
 
-const chartConfig = {
-  backgroundGradientFrom: '#ffffff',
-  backgroundGradientTo: '#ffffff',
-  color: (opacity = 1) => `rgba(49, 130, 206, ${opacity})`,
+const getChartConfig = (theme: ThemeColors) => ({
+  backgroundGradientFrom: theme.card,
+  backgroundGradientTo: theme.card,
+  color: (opacity = 1) => theme.primary,
+  labelColor: (opacity = 1) => theme.textSecondary,
   strokeWidth: 2,
   barPercentage: 0.5,
   useShadowColorFromDataset: false,
   decimalPlaces: 0,
-};
+});
 
 export const InsightsScreen = () => {
+  const { theme, mode } = useTheme();
+  const styles = getStyles(theme);
   const { expenses, events } = useExpenses();
   const [fullScreenChart, setFullScreenChart] = useState<string | null>(null);
 
@@ -167,7 +172,7 @@ export const InsightsScreen = () => {
         name,
         population,
         color: colors[index % colors.length],
-        legendFontColor: '#4A5568',
+        legendFontcolor: theme.textSecondary,
         legendFontSize: 12
       }))
       .sort((a, b) => b.population - a.population);
@@ -582,7 +587,7 @@ export const InsightsScreen = () => {
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>Year-Over-Year Monthly</Text>
           <TouchableOpacity onPress={() => setFullScreenChart('A')}>
-            <Ionicons name="expand" size={20} color="#718096" />
+            <Ionicons name="expand" size={20} color={theme.textMuted} />
           </TouchableOpacity>
         </View>
         
@@ -608,7 +613,7 @@ export const InsightsScreen = () => {
             height={220}
             yAxisLabel="₹"
             yAxisSuffix=""
-            chartConfig={chartConfig}
+            chartConfig={getChartConfig(theme)}
             withCustomBarColorFromData={true}
             flatColor={true}
             showBarTops={false}
@@ -626,10 +631,10 @@ export const InsightsScreen = () => {
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TouchableOpacity onPress={() => setShowChartBSelector(true)} style={styles.monthSelectorBtn}>
               <Text style={styles.monthSelectorText}>{format(parseISO(`${chartBMonthYear}-01`), 'MMM yyyy')}</Text>
-              <Ionicons name="chevron-down" size={16} color="#3182CE" />
+              <Ionicons name="chevron-down" size={16} color={theme.primary} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setFullScreenChart('B')} style={{ marginLeft: 12 }}>
-              <Ionicons name="expand" size={20} color="#718096" />
+              <Ionicons name="expand" size={20} color={theme.textMuted} />
             </TouchableOpacity>
           </View>
         </View>
@@ -641,7 +646,7 @@ export const InsightsScreen = () => {
           yAxisLabel="₹"
           yAxisSuffix=""
           chartConfig={{
-            ...chartConfig,
+            ...getChartConfig(theme),
             color: (opacity = 1) => `rgba(72, 187, 120, ${opacity})`,
           }}
           fromZero
@@ -658,10 +663,10 @@ export const InsightsScreen = () => {
               <Text style={styles.monthSelectorText}>
                 {chartCFilter === 'all' ? 'Overall' : events.find(e => e.id === chartCFilter)?.name?.substring(0, 10) + '...'}
               </Text>
-              <Ionicons name="chevron-down" size={16} color="#3182CE" />
+              <Ionicons name="chevron-down" size={16} color={theme.primary} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setFullScreenChart('C')} style={{ marginLeft: 12 }}>
-              <Ionicons name="expand" size={20} color="#718096" />
+              <Ionicons name="expand" size={20} color={theme.textMuted} />
             </TouchableOpacity>
           </View>
         </View>
@@ -671,7 +676,7 @@ export const InsightsScreen = () => {
             data={chartCData}
             width={screenWidth - 64}
             height={200}
-            chartConfig={chartConfig}
+            chartConfig={getChartConfig(theme)}
             accessor={"population"}
             backgroundColor={"transparent"}
             paddingLeft={"0"}
@@ -713,7 +718,7 @@ export const InsightsScreen = () => {
           <View style={styles.pdfActionRow}>
             <TouchableOpacity onPress={() => setShowReportMonthSelector(true)} style={styles.monthSelectorBtnLarge}>
               <Text style={styles.monthSelectorTextLarge}>{format(parseISO(`${reportMonth}-01`), 'MMMM yyyy')}</Text>
-              <Ionicons name="chevron-down" size={18} color="#3182CE" />
+              <Ionicons name="chevron-down" size={18} color={theme.primary} />
             </TouchableOpacity>
             <TouchableOpacity 
               style={[styles.pdfBtn, isGeneratingPDF && styles.pdfBtnDisabled]} 
@@ -784,10 +789,11 @@ export const InsightsScreen = () => {
           value={customStartDate}
           mode="date"
           display="default"
-          onChange={(event, date) => {
-            if (Platform.OS === 'android') setShowStartDatePicker(false);
-            if (event.type === 'set' && date) setCustomStartDate(date);
+          onChange={(e, d) => {
+            setShowStartDatePicker(Platform.OS === 'ios');
+            if (d) setCustomStartDate(d);
           }}
+          themeVariant={mode}
         />
       )}
 
@@ -796,10 +802,11 @@ export const InsightsScreen = () => {
           value={customEndDate}
           mode="date"
           display="default"
-          onChange={(event, date) => {
-            if (Platform.OS === 'android') setShowEndDatePicker(false);
-            if (event.type === 'set' && date) setCustomEndDate(date);
+          onChange={(e, d) => {
+            setShowEndDatePicker(Platform.OS === 'ios');
+            if (d) setCustomEndDate(d);
           }}
+          themeVariant={mode}
         />
       )}
 
@@ -808,7 +815,7 @@ export const InsightsScreen = () => {
         <View style={styles.fullScreenContainer}>
           <View style={styles.fullScreenHeader}>
             <TouchableOpacity onPress={() => setFullScreenChart(null)}>
-              <Ionicons name="close" size={28} color="#2D3748" />
+              <Ionicons name="close" size={28} color={theme.textPrimary} />
             </TouchableOpacity>
             <Text style={styles.fullScreenTitle}>
               {fullScreenChart === 'A' ? 'Year-Over-Year Monthly' : fullScreenChart === 'B' ? 'Week-Wise Breakdown' : 'Category Distribution'}
@@ -825,7 +832,7 @@ export const InsightsScreen = () => {
                   height={Dimensions.get('window').height - 200}
                   yAxisLabel="₹"
                   yAxisSuffix=""
-                  chartConfig={chartConfig}
+                  chartConfig={getChartConfig(theme)}
                   withCustomBarColorFromData={true}
                   flatColor={true}
                   fromZero
@@ -840,7 +847,7 @@ export const InsightsScreen = () => {
                 yAxisLabel="₹"
                 yAxisSuffix=""
                 chartConfig={{
-                  ...chartConfig,
+                  ...getChartConfig(theme),
                   color: (opacity = 1) => `rgba(72, 187, 120, ${opacity})`,
                 }}
                 fromZero
@@ -851,7 +858,7 @@ export const InsightsScreen = () => {
                 data={chartCData}
                 width={screenWidth - 16}
                 height={300}
-                chartConfig={chartConfig}
+                chartConfig={getChartConfig(theme)}
                 accessor={"population"}
                 backgroundColor={"transparent"}
                 paddingLeft={"0"}
@@ -868,10 +875,10 @@ export const InsightsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: theme.background,
   },
   content: {
     padding: 16,
@@ -884,7 +891,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderRadius: 16,
     padding: 16,
     marginBottom: 24,
@@ -903,7 +910,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   chartStyle: {
     marginVertical: 8,
@@ -919,33 +926,33 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderRadius: 16,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     borderWidth: 1,
     borderColor: 'transparent',
   },
   yearChipActive: {
-    backgroundColor: '#EBF8FF',
-    borderColor: '#3182CE',
+    backgroundColor: theme.primaryLight,
+    borderColor: theme.primary,
   },
   yearChipText: {
     fontSize: 12,
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: '600',
   },
   yearChipTextActive: {
-    color: '#3182CE',
+    color: theme.primary,
   },
   monthSelectorBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#EBF8FF',
+    backgroundColor: theme.primaryLight,
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
   },
   monthSelectorText: {
     fontSize: 12,
-    color: '#3182CE',
+    color: theme.primary,
     fontWeight: 'bold',
     marginRight: 4,
   },
@@ -955,7 +962,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyChartText: {
-    color: '#A0AEC0',
+    color: theme.textMuted,
     fontSize: 14,
   },
   fullScreenContainer: {
@@ -969,12 +976,12 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingTop: 64,
     borderBottomWidth: 1,
-    borderBottomColor: '#EDF2F7',
+    borderBottomColor: theme.surface,
   },
   fullScreenTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   fullScreenContent: {
     flex: 1,
@@ -983,7 +990,7 @@ const styles = StyleSheet.create({
   },
   pdfDescription: {
     fontSize: 14,
-    color: '#718096',
+    color: theme.textMuted,
     marginBottom: 16,
     lineHeight: 20,
   },
@@ -996,27 +1003,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 8,
   },
   monthSelectorTextLarge: {
     fontSize: 14,
-    color: '#2D3748',
+    color: theme.textPrimary,
     fontWeight: '600',
   },
   pdfBtn: {
     flex: 1.5,
     flexDirection: 'row',
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
     paddingVertical: 12,
   },
   pdfBtnDisabled: {
-    backgroundColor: '#A0AEC0',
+    backgroundColor: theme.textMuted,
   },
   pdfBtnText: {
     color: '#FFF',
@@ -1026,7 +1033,7 @@ const styles = StyleSheet.create({
   reportTypeToggleRow: {
     flexDirection: 'row',
     marginBottom: 16,
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     borderRadius: 8,
     padding: 4,
   },
@@ -1046,11 +1053,11 @@ const styles = StyleSheet.create({
   },
   reportTypeText: {
     fontSize: 14,
-    color: '#718096',
+    color: theme.textMuted,
     fontWeight: '600',
   },
   reportTypeTextActive: {
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   datePickerRow: {
     flexDirection: 'row',
@@ -1061,18 +1068,18 @@ const styles = StyleSheet.create({
   },
   datePickerLabel: {
     fontSize: 12,
-    color: '#718096',
+    color: theme.textMuted,
     marginBottom: 4,
   },
   datePickerBtn: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 8,
   },
   datePickerText: {
     fontSize: 14,
-    color: '#2D3748',
+    color: theme.textPrimary,
     fontWeight: '600',
     textAlign: 'center',
   }
