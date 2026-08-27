@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, TextInput, Switch, Modal, ScrollView, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useTheme } from '../theme/ThemeContext';
+import { lightThemes, darkThemes } from '../theme/palettes';
+import { ThemeColors } from '../theme/types';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 import * as DocumentPicker from 'expo-document-picker';
@@ -17,24 +20,29 @@ interface SettingsRowProps {
   subtitle: string;
   onPress: () => void;
   isDanger?: boolean;
+  theme: ThemeColors;
 }
 
-const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, subtitle, onPress, isDanger }) => {
+const SettingsRow: React.FC<SettingsRowProps> = ({ icon, title, subtitle, onPress, isDanger, theme }) => {
+  const styles = getStyles(theme);
   return (
     <TouchableOpacity style={styles.rowItem} onPress={onPress} activeOpacity={0.7}>
       <View style={styles.rowLeft}>
-        <Ionicons name={icon as any} size={22} color={isDanger ? '#E53E3E' : '#4A5568'} style={styles.rowIcon} />
+        <Ionicons name={icon as any} size={22} color={isDanger ? theme.danger : theme.textSecondary} style={styles.rowIcon} />
         <View style={styles.rowTextContainer}>
-          <Text style={[styles.rowTitle, isDanger && styles.rowTitleDanger]}>{title}</Text>
+          <Text style={[styles.rowTitle, isDanger && { color: theme.danger }]}>{title}</Text>
           <Text style={styles.rowSubtitle}>{subtitle}</Text>
         </View>
       </View>
-      <Ionicons name="chevron-forward" size={18} color={isDanger ? '#E53E3E' : '#A0AEC0'} />
+      <Ionicons name="chevron-forward" size={18} color={isDanger ? theme.danger : theme.textMuted} />
     </TouchableOpacity>
   );
 };
 
 export const SettingsScreen = () => {
+  const { theme, mode, selectedLightThemeId, selectedDarkThemeId, setLightTheme, setDarkTheme } = useTheme();
+  const styles = getStyles(theme);
+
   const {
     expenses, importBackup, categories, addCategory, deleteCategory,
     regularMembers, addRegularMember, deleteRegularMember,
@@ -43,7 +51,7 @@ export const SettingsScreen = () => {
   const [newCategory, setNewCategory] = useState('');
   const [newMember, setNewMember] = useState('');
   const [newEventName, setNewEventName] = useState('');
-  const [activeModal, setActiveModal] = useState<'BACKUP' | 'EVENTS' | 'CATEGORIES' | 'MEMBERS' | null>(null);
+  const [activeModal, setActiveModal] = useState<'BACKUP' | 'EVENTS' | 'CATEGORIES' | 'MEMBERS' | 'THEMES' | null>(null);
 
   const handleExport = async () => {
     try {
@@ -242,6 +250,7 @@ export const SettingsScreen = () => {
       <Text style={styles.sectionHeader}>Data Management</Text>
       <View style={styles.card}>
         <SettingsRow
+          theme={theme}
           icon="cloud-upload-outline"
           title="Backup & Restore"
           subtitle="Export to JSON or restore from backup file"
@@ -252,6 +261,15 @@ export const SettingsScreen = () => {
       <Text style={styles.sectionHeader}>Customization & Lists</Text>
       <View style={styles.card}>
         <SettingsRow
+          theme={theme}
+          icon="color-palette-outline"
+          title="Themes & Appearance"
+          subtitle="Customize your light and dark mode color palettes"
+          onPress={() => setActiveModal('THEMES')}
+        />
+        <View style={styles.rowDivider} />
+        <SettingsRow
+          theme={theme}
           icon="calendar-outline"
           title="Manage Events & Sessions"
           subtitle="Configure tracking groups or active travel trips"
@@ -259,6 +277,7 @@ export const SettingsScreen = () => {
         />
         <View style={styles.rowDivider} />
         <SettingsRow
+          theme={theme}
           icon="pricetag-outline"
           title="Customize Categories"
           subtitle="Add or remove transaction category tags"
@@ -266,6 +285,7 @@ export const SettingsScreen = () => {
         />
         <View style={styles.rowDivider} />
         <SettingsRow
+          theme={theme}
           icon="people-outline"
           title="Regular Members"
           subtitle="Manage default participants for split tracking"
@@ -276,6 +296,7 @@ export const SettingsScreen = () => {
       <Text style={styles.sectionHeader}>System Settings</Text>
       <View style={styles.card}>
         <SettingsRow
+          theme={theme}
           icon="trash-bin-outline"
           title="Purge All Data"
           subtitle="Permanently wipe all application states"
@@ -283,6 +304,70 @@ export const SettingsScreen = () => {
           isDanger={true}
         />
       </View>
+
+      {/* Modal: Themes & Appearance */}
+      <Modal
+        visible={activeModal === 'THEMES'}
+        animationType="slide"
+        onRequestClose={() => setActiveModal(null)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => setActiveModal(null)} style={styles.modalCloseButton}>
+              <Ionicons name="arrow-back" size={24} color={theme.textPrimary} />
+            </TouchableOpacity>
+            <Text style={styles.modalHeaderTitle}>Themes & Appearance</Text>
+            <View style={{ width: 24 }} />
+          </View>
+          <ScrollView contentContainerStyle={styles.modalContent}>
+            
+            <Text style={styles.sectionHeader}>Light Themes</Text>
+            {lightThemes.map((t) => (
+              <TouchableOpacity
+                key={t.id}
+                style={[styles.themeCard, selectedLightThemeId === t.id && styles.themeCardSelected]}
+                onPress={() => setLightTheme(t.id)}
+              >
+                <View style={styles.themeInfo}>
+                  <Text style={styles.themeName}>{t.name}</Text>
+                  <View style={styles.swatchRow}>
+                    <View style={[styles.swatch, { backgroundColor: t.colors.background, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.card, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.primary, borderColor: t.colors.primary, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.accent, borderColor: t.colors.accent, borderWidth: 1 }]} />
+                  </View>
+                </View>
+                {selectedLightThemeId === t.id && (
+                  <Ionicons name="checkmark-circle" size={24} color={theme.primary} />
+                )}
+              </TouchableOpacity>
+            ))}
+
+            <Text style={styles.sectionHeader}>Dark Themes</Text>
+            {darkThemes.map((t) => (
+              <TouchableOpacity
+                key={t.id}
+                style={[styles.themeCard, selectedDarkThemeId === t.id && styles.themeCardSelected]}
+                onPress={() => setDarkTheme(t.id)}
+              >
+                <View style={styles.themeInfo}>
+                  <Text style={styles.themeName}>{t.name}</Text>
+                  <View style={styles.swatchRow}>
+                    <View style={[styles.swatch, { backgroundColor: t.colors.background, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.card, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.primary, borderColor: t.colors.primary, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.accent, borderColor: t.colors.accent, borderWidth: 1 }]} />
+                  </View>
+                </View>
+                {selectedDarkThemeId === t.id && (
+                  <Ionicons name="checkmark-circle" size={24} color={theme.primary} />
+                )}
+              </TouchableOpacity>
+            ))}
+
+          </ScrollView>
+        </View>
+      </Modal>
 
       {/* Modal A: Backup & Restore */}
       <Modal
@@ -293,7 +378,7 @@ export const SettingsScreen = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setActiveModal(null)} style={styles.modalCloseButton}>
-              <Ionicons name="arrow-back" size={24} color="#2D3748" />
+              <Ionicons name="arrow-back" size={24} color={theme.textPrimary} />
             </TouchableOpacity>
             <Text style={styles.modalHeaderTitle}>Backup & Restore</Text>
             <View style={{ width: 24 }} />
@@ -325,7 +410,7 @@ export const SettingsScreen = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setActiveModal(null)} style={styles.modalCloseButton}>
-              <Ionicons name="arrow-back" size={24} color="#2D3748" />
+              <Ionicons name="arrow-back" size={24} color={theme.textPrimary} />
             </TouchableOpacity>
             <Text style={styles.modalHeaderTitle}>Events & Sessions</Text>
             <View style={{ width: 24 }} />
@@ -345,6 +430,7 @@ export const SettingsScreen = () => {
               <TextInput
                 style={styles.categoryInput}
                 placeholder="e.g. Goa Trip 2026"
+                placeholderTextColor={theme.textMuted}
                 value={newEventName}
                 onChangeText={setNewEventName}
               />
@@ -370,7 +456,7 @@ export const SettingsScreen = () => {
                         />
                       </View>
                       <TouchableOpacity onPress={() => handleDeleteEvent(ev.id, ev.name)} style={styles.deleteCategoryBtn}>
-                        <Ionicons name="trash-outline" size={20} color="#E53E3E" />
+                        <Ionicons name="trash-outline" size={20} color={theme.danger} />
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -390,7 +476,7 @@ export const SettingsScreen = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setActiveModal(null)} style={styles.modalCloseButton}>
-              <Ionicons name="arrow-back" size={24} color="#2D3748" />
+              <Ionicons name="arrow-back" size={24} color={theme.textPrimary} />
             </TouchableOpacity>
             <Text style={styles.modalHeaderTitle}>Customize Categories</Text>
             <View style={{ width: 24 }} />
@@ -410,6 +496,7 @@ export const SettingsScreen = () => {
               <TextInput
                 style={styles.categoryInput}
                 placeholder="New category name"
+                placeholderTextColor={theme.textMuted}
                 value={newCategory}
                 onChangeText={setNewCategory}
               />
@@ -423,7 +510,7 @@ export const SettingsScreen = () => {
                 <View key={c} style={styles.categoryRow}>
                   <Text style={styles.categoryRowText}>{c}</Text>
                   <TouchableOpacity onPress={() => handleDeleteCategory(c)} style={styles.deleteCategoryBtn}>
-                    <Ionicons name="trash-outline" size={20} color="#E53E3E" />
+                    <Ionicons name="trash-outline" size={20} color={theme.danger} />
                   </TouchableOpacity>
                 </View>
               ))}
@@ -441,7 +528,7 @@ export const SettingsScreen = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setActiveModal(null)} style={styles.modalCloseButton}>
-              <Ionicons name="arrow-back" size={24} color="#2D3748" />
+              <Ionicons name="arrow-back" size={24} color={theme.textPrimary} />
             </TouchableOpacity>
             <Text style={styles.modalHeaderTitle}>Regular Members</Text>
             <View style={{ width: 24 }} />
@@ -461,6 +548,7 @@ export const SettingsScreen = () => {
               <TextInput
                 style={styles.categoryInput}
                 placeholder="New member name"
+                placeholderTextColor={theme.textMuted}
                 value={newMember}
                 onChangeText={setNewMember}
               />
@@ -474,7 +562,7 @@ export const SettingsScreen = () => {
                 <View key={m} style={styles.categoryRow}>
                   <Text style={styles.categoryRowText}>{m}</Text>
                   <TouchableOpacity onPress={() => handleDeleteMember(m)} style={styles.deleteCategoryBtn}>
-                    <Ionicons name="trash-outline" size={20} color="#E53E3E" />
+                    <Ionicons name="trash-outline" size={20} color={theme.danger} />
                   </TouchableOpacity>
                 </View>
               ))}
@@ -486,10 +574,10 @@ export const SettingsScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ThemeColors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: theme.background,
   },
   contentContainer: {
     padding: 16,
@@ -498,7 +586,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#718096',
+    color: theme.textMuted,
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 8,
@@ -506,10 +594,10 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.cardBorder,
     overflow: 'hidden',
     marginBottom: 16,
     shadowColor: '#000',
@@ -523,7 +611,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
   },
   rowLeft: {
     flexDirection: 'row',
@@ -542,24 +630,21 @@ const styles = StyleSheet.create({
   rowTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2D3748',
-  },
-  rowTitleDanger: {
-    color: '#E53E3E',
+    color: theme.textPrimary,
   },
   rowSubtitle: {
     fontSize: 12,
-    color: '#718096',
+    color: theme.textSecondary,
     marginTop: 2,
   },
   rowDivider: {
     height: 1,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: theme.cardBorder,
     marginLeft: 52,
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: theme.background,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -567,9 +652,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
+    borderBottomColor: theme.cardBorder,
     ...Platform.select({
       ios: { paddingTop: 50 },
       android: { paddingTop: 16 },
@@ -578,7 +663,7 @@ const styles = StyleSheet.create({
   modalHeaderTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   modalCloseButton: {
     padding: 4,
@@ -587,29 +672,15 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 80,
   },
-  section: {
-    marginBottom: 8,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: '#E2E8F0',
-    marginVertical: 24,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2D3748',
-    marginBottom: 8,
-  },
   description: {
     fontSize: 14,
-    color: '#718096',
+    color: theme.textSecondary,
     marginBottom: 20,
     lineHeight: 20,
   },
   button: {
     flexDirection: 'row',
-    backgroundColor: '#3182CE',
+    backgroundColor: theme.primary,
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
@@ -617,7 +688,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   importButton: {
-    backgroundColor: '#4A5568',
+    backgroundColor: theme.textSecondary,
   },
   icon: {
     marginRight: 8,
@@ -633,16 +704,17 @@ const styles = StyleSheet.create({
   },
   categoryInput: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: theme.card,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.cardBorder,
     borderRadius: 8,
     padding: 12,
     marginRight: 12,
     fontSize: 16,
+    color: theme.textPrimary,
   },
   addCategoryBtn: {
-    backgroundColor: '#48BB78',
+    backgroundColor: theme.success,
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -654,11 +726,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   categoryList: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.card,
     borderRadius: 8,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.cardBorder,
   },
   categoryRow: {
     flexDirection: 'row',
@@ -666,11 +738,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
+    borderBottomColor: theme.cardBorder,
   },
   categoryRowText: {
     fontSize: 16,
-    color: '#2D3748',
+    color: theme.textPrimary,
   },
   deleteCategoryBtn: {
     padding: 4,
@@ -682,14 +754,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
+    borderBottomColor: theme.cardBorder,
   },
   eventInfo: {
     flex: 1,
   },
   eventDateText: {
     fontSize: 12,
-    color: '#A0AEC0',
+    color: theme.textMuted,
     marginTop: 2,
   },
   eventActions: {
@@ -702,23 +774,40 @@ const styles = StyleSheet.create({
   },
   switchLabel: {
     fontSize: 10,
-    color: '#718096',
+    color: theme.textMuted,
     marginBottom: 2,
   },
-  purgeButton: {
+  themeCard: {
     flexDirection: 'row',
-    backgroundColor: '#FFF5F5',
-    borderWidth: 1,
-    borderColor: '#FEB2B2',
-    padding: 16,
-    borderRadius: 8,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 16,
+    justifyContent: 'space-between',
+    backgroundColor: theme.card,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
   },
-  purgeButtonText: {
-    color: '#E53E3E',
+  themeCardSelected: {
+    borderColor: theme.primary,
+    borderWidth: 2,
+  },
+  themeInfo: {
+    flex: 1,
+  },
+  themeName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    color: theme.textPrimary,
+    marginBottom: 8,
+  },
+  swatchRow: {
+    flexDirection: 'row',
+  },
+  swatch: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    marginRight: 8,
   }
 });

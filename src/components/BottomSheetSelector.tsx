@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Modal, TouchableOpacity, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/types';
 
 const { height } = Dimensions.get('window');
 
@@ -21,6 +23,9 @@ export const BottomSheetSelector: React.FC<BottomSheetSelectorProps> = ({
   selectedValue,
   onSelect,
 }) => {
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
   return (
     <Modal
       visible={visible}
@@ -71,19 +76,19 @@ export const BottomSheetSelector: React.FC<BottomSheetSelectorProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ThemeColors) => StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     justifyContent: 'flex-end',
   },
   sheetContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: height * 0.6,
     paddingTop: 16,
-    paddingBottom: 32, // extra padding for bottom safe area
+    paddingBottom: 32,
     elevation: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
@@ -97,12 +102,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: theme.cardBorder,
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: theme.textPrimary,
   },
   closeButton: {
     padding: 4,
@@ -119,19 +124,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 12,
     marginBottom: 8,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: theme.background,
   },
   itemSelected: {
-    backgroundColor: '#e6f2ff',
-    borderColor: '#b3d9ff',
+    backgroundColor: theme.primaryLight,
+    borderColor: theme.primary,
     borderWidth: 1,
   },
   itemText: {
     fontSize: 16,
-    color: '#333',
+    color: theme.textPrimary,
   },
   itemTextSelected: {
     fontWeight: '600',
-    color: '#2f95dc',
+    color: theme.primary,
   },
 });

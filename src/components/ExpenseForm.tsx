@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch, Alert, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useTheme } from '../theme/ThemeContext';
+import { ThemeColors } from '../theme/types';
 import { ExpenseLog, SplitParticipant, PaymentMode } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
@@ -19,6 +21,9 @@ interface ExpenseFormProps {
 }
 
 export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit, submitButtonText = "Save Expense" }) => {
+  const { theme, mode } = useTheme();
+  const styles = getStyles(theme);
+
   const { categories, regularMembers, events, activeEvent } = useExpenses();
   
   const [amount, setAmount] = useState(initialData?.totalAmount ? initialData.totalAmount.toString() : '');
@@ -246,7 +251,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
       <TextInput
         style={styles.input}
         placeholder="Amount"
-        placeholderTextColor="#A0AEC0"
+        placeholderTextColor={theme.textMuted}
         keyboardType="numeric"
         value={amount}
         onChangeText={setAmount}
@@ -261,13 +266,13 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
             onPress={() => setShowEventSelector(true)}
             activeOpacity={0.7}
           >
-            <Text style={{ color: '#2D3748' }}>{selectedEventLabel}</Text>
+            <Text style={{ color: theme.textPrimary }}>{selectedEventLabel}</Text>
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addEventIconBtn} 
             onPress={() => setShowAddEvent(true)}
           >
-            <Ionicons name="add-circle" size={28} color="#3182CE" />
+            <Ionicons name="add-circle" size={28} color={theme.primary} />
           </TouchableOpacity>
         </View>
       ) : (
@@ -275,7 +280,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
           <TextInput
             style={[styles.input, styles.flex1, { marginBottom: 0 }]}
             placeholder="New Session Name"
-            placeholderTextColor="#A0AEC0"
+            placeholderTextColor={theme.textMuted}
             value={newEventName}
             onChangeText={setNewEventName}
             autoFocus
@@ -284,13 +289,13 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
             style={styles.addEventSaveBtn} 
             onPress={handleCreateEvent}
           >
-            <Ionicons name="checkmark-circle" size={28} color="#48BB78" />
+            <Ionicons name="checkmark-circle" size={28} color={theme.success} />
           </TouchableOpacity>
           <TouchableOpacity 
             style={styles.addEventCancelBtn} 
             onPress={() => setShowAddEvent(false)}
           >
-            <Ionicons name="close-circle" size={28} color="#E53E3E" />
+            <Ionicons name="close-circle" size={28} color={theme.danger} />
           </TouchableOpacity>
         </View>
       )}
@@ -327,7 +332,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
           onPress={() => setShowDatePicker(true)}
           activeOpacity={0.7}
         >
-          <Text style={{ color: '#2D3748' }}>
+          <Text style={{ color: theme.textPrimary }}>
             {format(dateObj, 'yyyy-MM-dd')}
           </Text>
         </TouchableOpacity>
@@ -337,12 +342,12 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
           onPress={() => setShowTimePicker(true)}
           activeOpacity={0.7}
         >
-          <Text style={{ color: hasTime ? '#2D3748' : '#A0AEC0', flex: 1 }}>
+          <Text style={{ color: hasTime ? theme.textPrimary : theme.textMuted, flex: 1 }}>
             {hasTime ? format(dateObj, 'hh:mm a') : "Time (Opt)"}
           </Text>
           {hasTime && (
             <TouchableOpacity onPress={() => setHasTime(false)} style={styles.clearTimeBtn}>
-              <Ionicons name="close-circle" size={18} color="#A0AEC0" />
+              <Ionicons name="close-circle" size={18} color={theme.textMuted} />
             </TouchableOpacity>
           )}
         </TouchableOpacity>
@@ -356,6 +361,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
           is24Hour={true}
           display="default"
           onChange={onChangeDate}
+          themeVariant={mode}
         />
       )}
       
@@ -368,13 +374,14 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
           minuteInterval={5}
           display="default"
           onChange={onChangeTime}
+          themeVariant={mode}
         />
       )}
 
       <TextInput
         style={styles.input}
         placeholder="Remarks (Optional)"
-        placeholderTextColor="#A0AEC0"
+        placeholderTextColor={theme.textMuted}
         value={remark}
         onChangeText={setRemark}
       />
@@ -395,7 +402,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
         <TextInput
           style={[styles.input, styles.customCategoryInput]}
           placeholder="Enter custom category"
-          placeholderTextColor="#A0AEC0"
+          placeholderTextColor={theme.textMuted}
           value={customCategory}
           onChangeText={setCustomCategory}
         />
@@ -403,14 +410,19 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
 
       <View style={styles.switchRow}>
         <Text style={styles.label}>Split Transaction?</Text>
-        <Switch value={isSplit} onValueChange={setIsSplit} />
+        <Switch 
+          value={isSplit} 
+          onValueChange={setIsSplit} 
+          trackColor={{ false: theme.cardBorder, true: theme.primaryLight }}
+          thumbColor={isSplit ? theme.primary : theme.textMuted}
+        />
       </View>
 
       {isSplit && (
         <View style={styles.splitContainer}>
           <Text style={[
             styles.computedShareText, 
-            isOverSplit && { color: '#E53E3E' }
+            isOverSplit && { color: theme.danger }
           ]}>
             My Share: ₹{equalShare.toFixed(2)}
           </Text>
@@ -423,7 +435,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
                 <TextInput
                   style={[styles.input, styles.searchInput]}
                   placeholder="Search members..."
-                  placeholderTextColor="#A0AEC0"
+                  placeholderTextColor={theme.textMuted}
                   value={membersSearchQuery}
                   onChangeText={setMembersSearchQuery}
                 />
@@ -478,14 +490,14 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
               <TextInput
                 style={[styles.input, styles.flex2]}
                 placeholder="Name"
-                placeholderTextColor="#A0AEC0"
+                placeholderTextColor={theme.textMuted}
                 value={p.name}
                 onChangeText={(val) => updateParticipant(p.id, 'name', val)}
               />
               <TextInput
                 style={[styles.input, styles.flex1]}
                 placeholder={`Equal: ₹${equalShare.toFixed(2)}`}
-                placeholderTextColor="#A0AEC0"
+                placeholderTextColor={theme.textMuted}
                 keyboardType="numeric"
                 value={p.shareAmountText}
                 onChangeText={(val) => updateParticipant(p.id, 'shareAmountText', val)}
@@ -508,9 +520,9 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
   );
 };
 
-const styles = StyleSheet.create({
+const getStyles = (theme: ThemeColors) => StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.card,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -519,20 +531,23 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 12,
-    color: '#333',
+    color: theme.textPrimary,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: theme.cardBorder,
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: theme.background,
+    color: theme.textPrimary,
   },
   dateTimeRow: {
     flexDirection: 'row',
@@ -553,7 +568,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4A5568',
+    color: theme.textSecondary,
     marginBottom: 8,
     marginTop: 4,
   },
@@ -563,18 +578,21 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   chip: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 16,
     marginRight: 8,
     marginBottom: 8,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   chipActive: {
-    backgroundColor: '#4299E1',
+    backgroundColor: theme.primary,
+    borderColor: theme.primary,
   },
   chipText: {
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontSize: 12,
   },
   chipTextActive: {
@@ -588,7 +606,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   splitContainer: {
-    backgroundColor: '#F7FAFC',
+    backgroundColor: theme.surface,
     padding: 12,
     borderRadius: 8,
     marginBottom: 16,
@@ -616,27 +634,27 @@ const styles = StyleSheet.create({
   },
   customToggleLabel: {
     fontSize: 10,
-    color: '#718096',
+    color: theme.textMuted,
     marginBottom: 2,
   },
   disabledInput: {
-    backgroundColor: '#EDF2F7',
+    backgroundColor: theme.surface,
     justifyContent: 'center',
     marginBottom: 0,
   },
   disabledText: {
-    color: '#A0AEC0',
+    color: theme.textMuted,
     fontSize: 14,
   },
   computedShareText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#2D3748',
+    color: theme.textPrimary,
     marginBottom: 12,
     textAlign: 'center',
   },
   deleteBtn: {
-    backgroundColor: '#FED7D7',
+    backgroundColor: theme.dangerSurface,
     width: 32,
     height: 32,
     justifyContent: 'center',
@@ -644,7 +662,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   deleteBtnText: {
-    color: '#C53030',
+    color: theme.danger,
     fontWeight: 'bold',
   },
   addParticipantBtn: {
@@ -652,26 +670,24 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   addParticipantText: {
-    color: '#3182CE',
+    color: theme.primary,
     fontWeight: 'bold',
   },
   customCategoryInput: {
     marginTop: -8,
     marginBottom: 16,
-    backgroundColor: '#EDF2F7',
-    borderColor: '#CBD5E0',
+    backgroundColor: theme.surface,
   },
   searchInput: {
     marginBottom: 12,
     paddingVertical: 8,
-    backgroundColor: '#F7FAFC',
-    borderColor: '#E2E8F0',
+    backgroundColor: theme.surface,
   },
   seeMoreChip: {
-    backgroundColor: '#E2E8F0',
+    backgroundColor: theme.surface,
   },
   seeMoreChipText: {
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: 'bold',
     fontSize: 12,
   },
@@ -681,12 +697,12 @@ const styles = StyleSheet.create({
     marginTop: -8,
   },
   seeLessText: {
-    color: '#4A5568',
+    color: theme.textSecondary,
     fontWeight: 'bold',
     fontSize: 12,
   },
   saveBtn: {
-    backgroundColor: '#48BB78',
+    backgroundColor: theme.success,
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',

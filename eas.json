@@ -11,17 +11,28 @@
     },
     "preview": {
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
       },
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "EXPO_ANDROID_SPLIT_PER_ABI": "true"
       },
       "distribution": "internal",
       "channel": "preview"
     },
     "production": {
       "autoIncrement": true,
-      "channel": "production"
+      "channel": "production",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "env": {
+        "EXPO_ANDROID_SPLIT_PER_ABI": "true"
+      }
     }
   },
   "submit": {

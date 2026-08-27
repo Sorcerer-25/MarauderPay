@@ -4,6 +4,7 @@
     "slug": "simpleTracker",
     "version": "1.0.0",
     "orientation": "portrait",
+    "jsEngine": "hermes",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -15,14 +16,24 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.myproject.expensetracker"
+      "package": "com.myproject.expensetracker",
+      "jsEngine": "hermes"
     },
     "web": {
       "favicon": "./assets/icon.png"
     },
     "plugins": [
       "@react-native-community/datetimepicker",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
