@@ -331,10 +331,10 @@ export const SettingsScreen = () => {
                 <View style={styles.themeInfo}>
                   <Text style={styles.themeName}>{t.name}</Text>
                   <View style={styles.swatchRow}>
-                    <View style={[styles.swatch, { backgroundColor: t.colors.background }]} />
-                    <View style={[styles.swatch, { backgroundColor: t.colors.card }]} />
-                    <View style={[styles.swatch, { backgroundColor: t.colors.primary }]} />
-                    <View style={[styles.swatch, { backgroundColor: t.colors.accent }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.background, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.card, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.primary, borderColor: t.colors.primary, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.accent, borderColor: t.colors.accent, borderWidth: 1 }]} />
                   </View>
                 </View>
                 {selectedLightThemeId === t.id && (
@@ -353,10 +353,10 @@ export const SettingsScreen = () => {
                 <View style={styles.themeInfo}>
                   <Text style={styles.themeName}>{t.name}</Text>
                   <View style={styles.swatchRow}>
-                    <View style={[styles.swatch, { backgroundColor: t.colors.background, borderColor: '#333', borderWidth: 1 }]} />
-                    <View style={[styles.swatch, { backgroundColor: t.colors.card, borderColor: '#333', borderWidth: 1 }]} />
-                    <View style={[styles.swatch, { backgroundColor: t.colors.primary, borderColor: '#333', borderWidth: 1 }]} />
-                    <View style={[styles.swatch, { backgroundColor: t.colors.accent, borderColor: '#333', borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.background, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.card, borderColor: t.colors.cardBorder, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.primary, borderColor: t.colors.primary, borderWidth: 1 }]} />
+                    <View style={[styles.swatch, { backgroundColor: t.colors.accent, borderColor: t.colors.accent, borderWidth: 1 }]} />
                   </View>
                 </View>
                 {selectedDarkThemeId === t.id && (
