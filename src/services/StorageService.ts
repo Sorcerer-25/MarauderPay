@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ExpenseLog, TravelEvent, UserWallet } from '../types';
+import { ExpenseLog, TravelEvent, UserWallet, CategoryGroup } from '../types';
+import { migrateCategories } from '../utils/categoryUtils';
 
 const STORE_KEY = '@expense_store';
 const CATEGORIES_KEY = '@category_store';
@@ -55,22 +56,26 @@ export const StorageService = {
   },
 
   /**
-   * Retrieves all custom categories from AsyncStorage.
+   * Retrieves all category groups from AsyncStorage.
    */
-  async getAllCategories(): Promise<string[]> {
+  async getAllCategories(): Promise<CategoryGroup[]> {
     try {
       const jsonValue = await AsyncStorage.getItem(CATEGORIES_KEY);
-      return jsonValue != null ? JSON.parse(jsonValue) : [];
+      if (jsonValue != null) {
+        const parsed = JSON.parse(jsonValue);
+        return migrateCategories(parsed);
+      }
+      return migrateCategories(null);
     } catch (e) {
       console.error('Error reading categories from storage', e);
-      return [];
+      return migrateCategories(null);
     }
   },
 
   /**
-   * Saves the entire array of custom categories to AsyncStorage.
+   * Saves the entire array of category groups to AsyncStorage.
    */
-  async saveAllCategories(categories: string[]): Promise<void> {
+  async saveAllCategories(categories: CategoryGroup[]): Promise<void> {
     try {
       const jsonValue = JSON.stringify(categories);
       await AsyncStorage.setItem(CATEGORIES_KEY, jsonValue);

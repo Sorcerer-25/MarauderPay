@@ -40,13 +40,21 @@ export interface UserWallet {
   creditBalance: number; // The pre-paid amount available
 }
 
+export interface CategoryGroup {
+  id: string;              // Unique ID e.g. "food"
+  name: string;            // Parent category name e.g. "Food"
+  subcategories: string[]; // Child categories e.g. ["Breakfast", "Lunch", "Dinner", "Snacks"]
+}
+
 export interface FullAppBackup {
   backupVersion: string;
   exportedAt: string;
   expenses: ExpenseLog[];
   events: TravelEvent[];
   wallets: UserWallet[];
-  categories?: string[];
+  categories?: (string | CategoryGroup)[];
+  categoryGroups?: CategoryGroup[];
   regularMembers?: string[];
 }
+
 

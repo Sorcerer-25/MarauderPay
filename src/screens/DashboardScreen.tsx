@@ -1,12 +1,10 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch, Alert, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useToast } from '../contexts/ToastContext';
 import { useTheme } from '../theme/ThemeContext';
 import { ThemeColors } from '../theme/types';
-import { ExpenseCategory, ExpenseLog, SplitParticipant } from '../types';
-import { v4 as uuidv4 } from 'uuid';
 import { startOfWeek, startOfMonth, isAfter, parseISO, format } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
 import { ExpenseForm } from '../components/ExpenseForm';
@@ -14,9 +12,10 @@ import { StorageService } from '../services/StorageService';
 
 export const DashboardScreen = () => {
   const { theme } = useTheme();
+  const { showToast } = useToast();
   const styles = getStyles(theme);
 
-  const { expenses, addExpense } = useExpenses();
+  const { expenses, addExpense, getParentCategoryName } = useExpenses();
   const [isHistoryExpanded, setIsHistoryExpanded] = useState(false);
 
   // Analytics Computation
@@ -40,7 +39,8 @@ export const DashboardScreen = () => {
       }
       if (isAfter(expDate, monthStart) || expDate.getTime() === monthStart.getTime()) {
         monthlyTotal += exp.myShare;
-        categoryTotals[exp.category] = (categoryTotals[exp.category] || 0) + exp.myShare;
+        const parentCat = getParentCategoryName(exp.category);
+        categoryTotals[parentCat] = (categoryTotals[parentCat] || 0) + exp.myShare;
       }
 
       const monthKey = format(expDate, 'yyyy-MM');
@@ -54,15 +54,18 @@ export const DashboardScreen = () => {
     return { weeklyTotal, monthlyTotal, grandTotal, categoryTotals, sortedHistory };
   }, [expenses]);
 
+
+
   return (
-    <KeyboardAwareScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      enableOnAndroid={true}
-      extraScrollHeight={120}
-      extraHeight={120}
-      keyboardShouldPersistTaps="handled"
-    >
+    <View style={styles.container}>
+      <KeyboardAwareScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={styles.content}
+        enableOnAndroid={true}
+        extraScrollHeight={120}
+        extraHeight={120}
+        keyboardShouldPersistTaps="handled"
+      >
       {/* Analytics Section */}
       <TouchableOpacity
         style={styles.card}
@@ -159,10 +162,12 @@ export const DashboardScreen = () => {
           }
 
           await addExpense(updatedExpense);
-          Alert.alert('Success', 'Expense added successfully!');
+          showToast('Expense added successfully!', 'success');
         }}
       />
-    </KeyboardAwareScrollView>
+
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 
@@ -263,4 +268,5 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     fontWeight: 'bold',
     color: theme.primary,
   },
+
 });

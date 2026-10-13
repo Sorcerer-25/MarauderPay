@@ -1,8 +1,28 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, SectionList, TouchableOpacity, Alert, Modal, ScrollView, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  FlatList, 
+  SectionList, 
+  TouchableOpacity, 
+  Alert, 
+  Modal, 
+  ScrollView, 
+  TextInput, 
+  KeyboardAvoidingView, 
+  Platform,
+  LayoutAnimation,
+  UIManager
+} from 'react-native';
 import { useExpenses } from '../contexts/ExpenseContext';
+
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 import { useTheme } from '../theme/ThemeContext';
 import { ThemeColors } from '../theme/types';
+import { getSolidColor } from '../theme/palettes';
 import { ExpenseLog, SplitParticipant, PaymentMode, UserWallet } from '../types';
 import { parseISO, format } from 'date-fns';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,6 +30,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ExpenseForm } from '../components/ExpenseForm';
+import { useToast } from '../contexts/ToastContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StorageService } from '../services/StorageService';
 
@@ -59,9 +80,10 @@ const getPendingBalances = (expenses: ExpenseLog[]): DebtorSummary[] => {
 
 export const HistoryScreen = () => {
   const { theme, mode } = useTheme();
-  const styles = getStyles(theme);
-  const { expenses, updateExpense, deleteExpense, events, setAllExpenses, activeEvent, categories: contextCategories } = useExpenses();
-  const [layoutMode, setLayoutMode] = useState<'detailed' | 'short'>('detailed');
+  const { showToast } = useToast();
+  const styles = getStyles(theme, mode);
+  const { expenses, updateExpense, deleteExpense, events, setAllExpenses, activeEvent, categories: contextCategories, categoryGroups } = useExpenses();
+  const [layoutMode, setLayoutMode] = useState<'detailed' | 'short'>('short');
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
     searchQuery: '',
     categories: [],
@@ -301,7 +323,7 @@ export const HistoryScreen = () => {
     
     const amount = parseFloat(settlementAmount);
     if (isNaN(amount) || amount <= 0) {
-      Alert.alert('Invalid Amount', 'Please enter a valid amount.');
+      showToast('Please enter a valid amount.', 'error');
       return;
     }
 
@@ -377,9 +399,9 @@ export const HistoryScreen = () => {
           wallets.push({ name: lowerName, creditBalance: remainingPool });
         }
         await StorageService.saveWallets(wallets);
-        Alert.alert('All debts settled!', `Surplus of ₹${remainingPool} added to ${selectedDebtor.name}'s wallet for future splits.`);
+        showToast(`All debts settled! Surplus of ₹${remainingPool} added to ${selectedDebtor.name}'s wallet.`, 'success');
       } else {
-        Alert.alert('Success', 'Payment recorded successfully.');
+        showToast('Payment recorded successfully.', 'success');
       }
 
       if (setAllExpenses) {
@@ -392,7 +414,7 @@ export const HistoryScreen = () => {
       setSettlementAmount('');
     } catch (e) {
       console.error(e);
-      Alert.alert('Error', 'Failed to save settlement.');
+      showToast('Failed to save settlement.', 'error');
     }
   };
 
@@ -466,7 +488,7 @@ export const HistoryScreen = () => {
   const handleEditSubmit = async (updatedExpense: ExpenseLog) => {
     await updateExpense(updatedExpense);
     setEditingExpense(null);
-    Alert.alert('Success', 'Expense updated successfully!');
+    showToast('Expense updated successfully!', 'success');
   };
 
   const renderDebtorItem = ({ item }: { item: DebtorSummary }) => (
@@ -494,6 +516,7 @@ export const HistoryScreen = () => {
   );
 
   const toggleRowExpanded = (id: string) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpandedRows(prev => ({
       ...prev,
       [id]: !prev[id],
@@ -505,74 +528,221 @@ export const HistoryScreen = () => {
     const isSettled = item.splitDetails?.isSettled;
 
     if (layoutMode === 'short') {
-      const isExpanded = expandedRows[item.id];
+      const isExpanded = !!expandedRows[item.id];
       const dateObj = parseISO(item.expenseDate);
-      const formattedDate = format(dateObj, 'dd/MM');
+      const formattedDateShort = format(dateObj, 'dd MMM');
+      const hasTime = item.expenseDate.includes('T');
+      const formattedDateFull = format(dateObj, hasTime ? 'EEE, dd MMM yyyy • hh:mm a' : 'EEEE, dd MMM yyyy');
+      const eventObj = item.eventId ? events.find(e => e.id === item.eventId) : undefined;
+      const statusColor = isSplit ? (isSettled ? '#10B981' : '#F59E0B') : theme.primary;
 
       return (
         <View style={[styles.shortCard, isExpanded && styles.shortCardExpanded]}>
+          {/* Left Status Accent Indicator Strip */}
+          <View style={[styles.shortCardAccentStrip, { backgroundColor: statusColor }]} />
+
+          {/* Core Collapsible Header Row */}
           <TouchableOpacity
-            style={styles.shortCoreRow}
+            style={[styles.shortCoreRow, isExpanded && styles.shortCoreRowExpanded]}
             onPress={() => toggleRowExpanded(item.id)}
-            activeOpacity={0.7}
+            activeOpacity={0.75}
           >
-            <Text style={styles.shortDate}>{formattedDate}</Text>
-            <Text style={styles.shortRemark} numberOfLines={1} ellipsizeMode="tail">
-              {item.remark || item.category || 'Expense'}
-            </Text>
-            <Text style={styles.shortAmount}>₹{item.totalAmount.toFixed(2)}</Text>
+            {/* Date Badge */}
+            <View style={styles.shortDateContainer}>
+              <Text style={styles.shortDateText}>{formattedDateShort}</Text>
+            </View>
+
+            {/* Description & Category Column */}
+            <View style={styles.shortCenterContent}>
+              <Text style={styles.shortTitleText} numberOfLines={1} ellipsizeMode="tail">
+                {item.remark || item.category || 'Expense'}
+              </Text>
+              <View style={styles.shortSubRow}>
+                <Text style={styles.shortCategorySubText} numberOfLines={1}>
+                  {item.category}
+                </Text>
+                {eventObj && (
+                  <Text style={styles.shortEventSubText} numberOfLines={1}>
+                    {' '}&bull; {eventObj.name}
+                  </Text>
+                )}
+              </View>
+            </View>
+
+            {/* Total Amount & Indicator Icons */}
+            <View style={styles.shortRightContent}>
+              <View style={styles.shortAmountWrapper}>
+                {isSplit && (
+                  <Ionicons
+                    name="people"
+                    size={13}
+                    color={isSettled ? '#10B981' : '#F59E0B'}
+                    style={{ marginRight: 4 }}
+                  />
+                )}
+                <Text style={styles.shortAmountText}>₹{item.totalAmount.toFixed(2)}</Text>
+              </View>
+              <Ionicons
+                name={isExpanded ? 'chevron-up' : 'chevron-down'}
+                size={16}
+                color={isExpanded ? theme.primary : theme.textMuted}
+                style={styles.shortChevron}
+              />
+            </View>
           </TouchableOpacity>
 
+          {/* Expanded Content Section */}
           {isExpanded && (
             <View style={styles.shortExpandedDetails}>
-              <View style={styles.shortDetailsRow}>
-                <View style={styles.categoryBadge}>
-                  <Text style={styles.categoryText}>{item.category}</Text>
+              {/* Hairline Divider */}
+              <View style={styles.expandedDivider} />
+
+              {/* Metadata Badges Strip */}
+              <View style={styles.expandedMetaStrip}>
+                <View style={styles.metaBadge}>
+                  <Ionicons name="calendar-outline" size={13} color={theme.textSecondary} style={{ marginRight: 4 }} />
+                  <Text style={styles.metaBadgeText}>{formattedDateFull}</Text>
                 </View>
+
                 {item.paymentMode && (
-                  <View style={styles.paymentModeBadge}>
-                    <Text style={styles.paymentModeText}>{item.paymentMode}</Text>
+                  <View style={styles.metaBadge}>
+                    <Ionicons
+                      name={item.paymentMode === 'Cash' ? 'cash-outline' : item.paymentMode === 'Card' ? 'card-outline' : 'phone-portrait-outline'}
+                      size={13}
+                      color={theme.textSecondary}
+                      style={{ marginRight: 4 }}
+                    />
+                    <Text style={styles.metaBadgeText}>{item.paymentMode}</Text>
+                  </View>
+                )}
+
+                {eventObj && (
+                  <View style={[styles.metaBadge, styles.eventMetaBadge]}>
+                    <Ionicons name="airplane-outline" size={13} color={theme.primary} style={{ marginRight: 4 }} />
+                    <Text style={[styles.metaBadgeText, { color: theme.primary, fontWeight: '600' }]}>{eventObj.name}</Text>
                   </View>
                 )}
               </View>
 
-              <View style={styles.shortDetailsRow}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Text style={styles.myShareLabel}>My Share:</Text>
-                  <Text style={styles.myShareValue}>₹{item.myShare.toFixed(2)}</Text>
+              {/* Full Remark Box (if exists) */}
+              {item.remark ? (
+                <View style={styles.remarkBox}>
+                  <Ionicons name="document-text-outline" size={15} color={theme.textMuted} style={styles.remarkBoxIcon} />
+                  <Text style={styles.remarkBoxText}>{item.remark}</Text>
                 </View>
+              ) : null}
 
-                {isSplit && (
+              {/* Financial & Split Breakdown Card */}
+              {isSplit && item.splitDetails ? (
+                <View style={styles.splitBreakdownCard}>
+                  <View style={styles.splitHeaderRow}>
+                    <View style={styles.splitHeaderLeft}>
+                      <Ionicons name="people-sharp" size={16} color={theme.primary} style={{ marginRight: 6 }} />
+                      <Text style={styles.splitHeaderTitle}>Split Breakdown</Text>
+                    </View>
+                    <View style={[styles.splitStatusBadge, isSettled ? styles.settledStatusBadge : styles.unsettledStatusBadge]}>
+                      <Ionicons
+                        name={isSettled ? 'checkmark-circle' : 'time-outline'}
+                        size={12}
+                        color={isSettled ? '#059669' : '#D97706'}
+                        style={{ marginRight: 4 }}
+                      />
+                      <Text style={[styles.splitStatusText, { color: isSettled ? '#059669' : '#D97706' }]}>
+                        {isSettled ? 'Fully Settled' : 'Unsettled'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Summary Metric Pills */}
+                  <View style={styles.splitMetricsRow}>
+                    <View style={styles.splitMetricItem}>
+                      <Text style={styles.splitMetricLabel}>Total Bill</Text>
+                      <Text style={styles.splitMetricValue}>₹{item.totalAmount.toFixed(2)}</Text>
+                    </View>
+                    <View style={styles.splitMetricDivider} />
+                    <View style={styles.splitMetricItem}>
+                      <Text style={styles.splitMetricLabel}>My Share</Text>
+                      <Text style={[styles.splitMetricValue, { color: theme.primary }]}>₹{item.myShare.toFixed(2)}</Text>
+                    </View>
+                    <View style={styles.splitMetricDivider} />
+                    <View style={styles.splitMetricItem}>
+                      <Text style={styles.splitMetricLabel}>Others Owe</Text>
+                      <Text style={[styles.splitMetricValue, { color: isSettled ? '#10B981' : '#F59E0B' }]}>
+                        ₹{Math.max(0, item.totalAmount - item.myShare).toFixed(2)}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Participant Chips */}
+                  {item.splitDetails.participants && item.splitDetails.participants.length > 0 && (
+                    <View style={styles.participantsSection}>
+                      <Text style={styles.participantsSectionTitle}>Participants:</Text>
+                      <View style={styles.participantPillsWrap}>
+                        {item.splitDetails.participants.map(p => (
+                          <View
+                            key={p.id}
+                            style={[
+                              styles.participantPill,
+                              p.hasPaid ? styles.participantPillPaid : styles.participantPillUnpaid,
+                            ]}
+                          >
+                            <Ionicons
+                              name={p.hasPaid ? 'checkmark-circle' : 'ellipse-outline'}
+                              size={12}
+                              color={p.hasPaid ? '#10B981' : '#F59E0B'}
+                              style={{ marginRight: 4 }}
+                            />
+                            <Text style={styles.participantPillName}>{p.name}</Text>
+                            <Text style={styles.participantPillAmount}>: ₹{p.shareAmount.toFixed(2)}</Text>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+                  )}
+
+                  {/* Quick Settle / Manage Split Button */}
                   <TouchableOpacity
-                    style={[styles.splitBadge, isSettled ? styles.settledBadge : styles.unsettledBadge]}
+                    style={styles.manageSplitButton}
                     onPress={() => openSettlementModal(item)}
-                    activeOpacity={0.7}
+                    activeOpacity={0.75}
                   >
-                    <Text style={[styles.splitBadgeText, isSettled ? styles.settledText : styles.unsettledText]}>
-                      {isSettled ? 'Settled' : 'Unsettled Split'}
+                    <Ionicons name="options" size={14} color={theme.primary} style={{ marginRight: 6 }} />
+                    <Text style={styles.manageSplitButtonText}>
+                      {isSettled ? 'View Split Details' : 'Manage & Settle Split'}
                     </Text>
+                    <Ionicons name="chevron-forward" size={14} color={theme.primary} style={{ marginLeft: 2 }} />
                   </TouchableOpacity>
-                )}
-              </View>
-
-              {item.remark && (
-                <Text style={styles.shortRemarkFull}>{item.remark}</Text>
+                </View>
+              ) : (
+                <View style={styles.personalSummaryCard}>
+                  <View style={styles.personalSummaryRow}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Ionicons name="person" size={14} color={theme.primary} style={{ marginRight: 6 }} />
+                      <Text style={styles.personalSummaryLabel}>Personal Expense</Text>
+                    </View>
+                    <Text style={styles.personalSummaryValue}>₹{item.totalAmount.toFixed(2)}</Text>
+                  </View>
+                </View>
               )}
 
+              {/* Action Buttons Row */}
               <View style={styles.shortActionsRow}>
                 <TouchableOpacity
-                  style={styles.shortActionBtn}
+                  style={styles.shortActionEditBtn}
                   onPress={() => setEditingExpense(item)}
+                  activeOpacity={0.7}
                 >
-                  <Ionicons name="pencil" size={16} color={theme.textSecondary} style={{ marginRight: 4 }} />
-                  <Text style={styles.shortActionBtnText}>Edit</Text>
+                  <Ionicons name="pencil" size={15} color={theme.textPrimary} style={{ marginRight: 6 }} />
+                  <Text style={styles.shortActionEditText}>Edit</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
-                  style={[styles.shortActionBtn, styles.shortDeleteBtn]}
+                  style={styles.shortActionDeleteBtn}
                   onPress={() => handleDelete(item.id)}
+                  activeOpacity={0.7}
                 >
-                  <Ionicons name="trash" size={16} color={theme.danger} style={{ marginRight: 4 }} />
-                  <Text style={[styles.shortActionBtnText, styles.shortDeleteText]}>Delete</Text>
+                  <Ionicons name="trash-outline" size={15} color={theme.danger} style={{ marginRight: 6 }} />
+                  <Text style={styles.shortActionDeleteText}>Delete</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -679,28 +849,36 @@ export const HistoryScreen = () => {
               onPress={() => setFilterModalVisible(true)}
               activeOpacity={0.7}
             >
-              <Ionicons name="funnel" size={20} color={isAnyFilterActive ? '#FFFFFF' : '#4A5568'} />
+              <Ionicons name="funnel" size={20} color={isAnyFilterActive ? '#FFFFFF' : theme.textSecondary} />
               {isAnyFilterActive && <View style={styles.filterActiveDot} />}
             </TouchableOpacity>
           </View>
         )}
 
-        {/* Layout Toggle Switches */}
+        {/* Single Layout Toggle Button */}
         {viewMode === 'FULL_LOG' && (
           <View style={styles.layoutToggleContainer}>
             <TouchableOpacity 
-              style={[styles.layoutToggleBtn, layoutMode === 'detailed' && styles.layoutToggleBtnActive]}
-              onPress={() => setLayoutMode('detailed')}
+              style={styles.singleToggleBtn}
+              onPress={() => setLayoutMode(prev => prev === 'short' ? 'detailed' : 'short')}
+              activeOpacity={0.7}
             >
-              <Ionicons name="list-outline" size={16} color={layoutMode === 'detailed' ? '#FFFFFF' : '#4A5568'} style={{ marginRight: 6 }} />
-              <Text style={[styles.layoutToggleText, layoutMode === 'detailed' && styles.layoutToggleTextActive]}>Detailed View</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[styles.layoutToggleBtn, layoutMode === 'short' && styles.layoutToggleBtnActive]}
-              onPress={() => setLayoutMode('short')}
-            >
-              <Ionicons name="menu-outline" size={16} color={layoutMode === 'short' ? '#FFFFFF' : '#4A5568'} style={[{ marginRight: 6 }, { transform: [{ rotate: '90deg' }] }]} />
-              <Text style={[styles.layoutToggleText, layoutMode === 'short' && styles.layoutToggleTextActive]}>Short View</Text>
+              <View style={styles.singleToggleLeft}>
+                <Ionicons 
+                  name={layoutMode === 'short' ? "reorder-four" : "list"} 
+                  size={18} 
+                  color={theme.primary} 
+                  style={{ marginRight: 8 }} 
+                />
+                <Text style={styles.singleToggleText}>
+                  {layoutMode === 'short' ? 'Short View' : 'Detailed View'}
+                </Text>
+              </View>
+              <View style={styles.toggleBadge}>
+                <Text style={styles.toggleBadgeText}>
+                  Switch to {layoutMode === 'short' ? 'Detailed' : 'Short'}
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         )}
@@ -792,32 +970,37 @@ export const HistoryScreen = () => {
             >
               {/* Category Grid Checkboxes */}
               <Text style={styles.filterSectionTitle}>Categories</Text>
-              <View style={styles.modalChipGrid}>
-                {contextCategories.map(cat => {
-                  const isSelected = tempCategories.includes(cat);
-                  return (
-                    <TouchableOpacity
-                      key={cat}
-                      style={[styles.modalChip, isSelected && styles.modalChipActive]}
-                      onPress={() => {
-                        setTempCategories(prev =>
-                          prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
-                        );
-                      }}
-                    >
-                      <Ionicons 
-                        name={isSelected ? "checkmark-circle" : "ellipse-outline"} 
-                        size={16} 
-                        color={isSelected ? "#FFFFFF" : "#718096"} 
-                        style={{ marginRight: 4 }}
-                      />
-                      <Text style={[styles.modalChipText, isSelected && styles.modalChipTextActive]}>
-                        {cat}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+              {categoryGroups.map(group => (
+                <View key={group.id} style={{ marginBottom: 12 }}>
+                  <Text style={[styles.filterSubSectionTitle, { color: theme.textSecondary }]}>{group.name}</Text>
+                  <View style={styles.modalChipGrid}>
+                    {group.subcategories.map(cat => {
+                      const isSelected = tempCategories.includes(cat);
+                      return (
+                        <TouchableOpacity
+                          key={cat}
+                          style={[styles.modalChip, isSelected && styles.modalChipActive]}
+                          onPress={() => {
+                            setTempCategories(prev =>
+                              prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+                            );
+                          }}
+                        >
+                          <Ionicons 
+                            name={isSelected ? "checkmark-circle" : "ellipse-outline"} 
+                            size={16} 
+                            color={isSelected ? "#FFFFFF" : theme.textMuted} 
+                            style={{ marginRight: 4 }}
+                          />
+                          <Text style={[styles.modalChipText, isSelected && styles.modalChipTextActive]}>
+                            {cat}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    })}
+                  </View>
+                </View>
+              ))}
 
               {/* Payment Mode Checkboxes */}
               <Text style={styles.filterSectionTitle}>Payment Modes</Text>
@@ -837,7 +1020,7 @@ export const HistoryScreen = () => {
                       <Ionicons 
                         name={isSelected ? "checkmark-circle" : "ellipse-outline"} 
                         size={16} 
-                        color={isSelected ? "#FFFFFF" : "#718096"} 
+                        color={isSelected ? "#FFFFFF" : theme.textMuted} 
                         style={{ marginRight: 4 }}
                       />
                       <Text style={[styles.modalChipText, isSelected && styles.modalChipTextActive]}>
@@ -1071,7 +1254,7 @@ export const HistoryScreen = () => {
   );
 };
 
-const getStyles = (theme: ThemeColors) => StyleSheet.create({
+const getStyles = (theme: ThemeColors, mode: 'light' | 'dark') => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.background,
@@ -1153,11 +1336,13 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     fontSize: 14,
   },
   amountInput: {
-    backgroundColor: theme.surface,
+    backgroundColor: getSolidColor(theme.surface, mode === 'dark' ? '#242C3D' : '#F4F5F7'),
     padding: 12,
     borderRadius: 8,
     fontSize: 16,
     color: theme.textPrimary,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   confirmSettlementBtn: {
     backgroundColor: theme.success,
@@ -1285,15 +1470,17 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.55)',
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: theme.card,
+    backgroundColor: getSolidColor(theme.card, mode === 'dark' ? '#1A202C' : '#FFFFFF'),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
     maxHeight: '80%',
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -1328,9 +1515,9 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     color: theme.textPrimary,
   },
   filterSection: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.card,
     borderBottomWidth: 1,
-    borderBottomColor: theme.surface,
+    borderBottomColor: theme.cardBorder,
     paddingVertical: 12,
   },
   filterScroll: {
@@ -1343,9 +1530,12 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     paddingHorizontal: 12,
     borderRadius: 16,
     marginRight: 8,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   filterChipActive: {
     backgroundColor: theme.primary,
+    borderColor: theme.primary,
   },
   filterChipText: {
     color: theme.textSecondary,
@@ -1354,6 +1544,7 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
   },
   filterChipTextActive: {
     color: '#FFF',
+    fontWeight: 'bold',
   },
   paymentModeBadge: {
     backgroundColor: theme.surface,
@@ -1475,30 +1666,39 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     backgroundColor: theme.danger,
   },
   layoutToggleContainer: {
-    flexDirection: 'row',
     paddingHorizontal: 16,
     paddingVertical: 8,
-    gap: 8,
   },
-  layoutToggleBtn: {
-    flex: 1,
+  singleToggleBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 8,
+    paddingHorizontal: 12,
     backgroundColor: theme.surface,
-    borderRadius: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
-  layoutToggleBtnActive: {
-    backgroundColor: theme.textPrimary,
+  singleToggleLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  layoutToggleText: {
-    fontSize: 12,
-    color: theme.textSecondary,
+  singleToggleText: {
+    fontSize: 13,
+    color: theme.textPrimary,
     fontWeight: '600',
   },
-  layoutToggleTextActive: {
-    color: theme.card,
+  toggleBadge: {
+    backgroundColor: theme.primaryLight || theme.card,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  toggleBadgeText: {
+    fontSize: 11,
+    color: theme.primary,
+    fontWeight: '700',
   },
   sectionHeaderContainer: {
     backgroundColor: theme.primaryLight,
@@ -1518,98 +1718,357 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
   },
   shortCard: {
     backgroundColor: theme.card,
-    borderRadius: 8,
+    borderRadius: 14,
     marginHorizontal: 16,
-    marginBottom: 8,
+    marginBottom: 10,
     borderWidth: 1,
     borderColor: theme.cardBorder,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
   },
   shortCardExpanded: {
-    borderColor: theme.primaryLight,
+    borderColor: theme.primaryLight || theme.cardBorder,
     shadowColor: theme.primary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  shortCardAccentStrip: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+    zIndex: 2,
   },
   shortCoreRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    paddingLeft: 16,
     justifyContent: 'space-between',
   },
-  shortDate: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: theme.textMuted,
-    width: 45,
-  },
-  shortRemark: {
-    flex: 1,
-    fontSize: 14,
-    color: theme.textPrimary,
-    marginHorizontal: 8,
-  },
-  shortAmount: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: theme.textPrimary,
-  },
-  shortExpandedDetails: {
-    padding: 12,
-    borderTopWidth: 1,
-    borderTopColor: theme.surface,
+  shortCoreRowExpanded: {
     backgroundColor: theme.surface,
   },
-  shortDetailsRow: {
+  shortDateContainer: {
+    backgroundColor: theme.surface,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+  },
+  shortDateText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: theme.textSecondary,
+    textTransform: 'uppercase',
+  },
+  shortCenterContent: {
+    flex: 1,
+    marginRight: 8,
+    justifyContent: 'center',
+  },
+  shortTitleText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: theme.textPrimary,
+    lineHeight: 20,
+  },
+  shortSubRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 2,
+  },
+  shortCategorySubText: {
+    fontSize: 12,
+    color: theme.textMuted,
+    fontWeight: '500',
+  },
+  shortEventSubText: {
+    fontSize: 12,
+    color: theme.primary,
+    fontWeight: '600',
+  },
+  shortRightContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  shortAmountWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 6,
+  },
+  shortAmountText: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: theme.textPrimary,
+  },
+  shortChevron: {
+    paddingLeft: 2,
+  },
+  shortExpandedDetails: {
+    paddingHorizontal: 14,
+    paddingBottom: 14,
+    paddingTop: 4,
+    backgroundColor: theme.card,
+  },
+  expandedDivider: {
+    height: 1,
+    backgroundColor: theme.cardBorder,
+    marginBottom: 12,
+    opacity: 0.7,
+  },
+  expandedMetaStrip: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 12,
+  },
+  metaBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.surface,
+    paddingVertical: 5,
+    paddingHorizontal: 9,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+  },
+  eventMetaBadge: {
+    backgroundColor: theme.primaryLight || theme.surface,
+    borderColor: theme.primaryLight || theme.cardBorder,
+  },
+  metaBadgeText: {
+    fontSize: 12,
+    color: theme.textSecondary,
+    fontWeight: '500',
+  },
+  remarkBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: theme.surface,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+    marginBottom: 12,
+  },
+  remarkBoxIcon: {
+    marginRight: 8,
+    marginTop: 1,
+  },
+  remarkBoxText: {
+    flex: 1,
+    fontSize: 13,
+    color: theme.textPrimary,
+    lineHeight: 18,
+  },
+  splitBreakdownCard: {
+    backgroundColor: theme.surface,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+    padding: 12,
+    marginBottom: 12,
+  },
+  splitHeaderRow: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 10,
   },
-  shortRemarkFull: {
+  splitHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  splitHeaderTitle: {
     fontSize: 13,
+    fontWeight: '700',
+    color: theme.textPrimary,
+  },
+  splitStatusBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 12,
+  },
+  settledStatusBadge: {
+    backgroundColor: '#DCFCE7',
+  },
+  unsettledStatusBadge: {
+    backgroundColor: '#FEF3C7',
+  },
+  splitStatusText: {
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  splitMetricsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: theme.card,
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+  },
+  splitMetricItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  splitMetricLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: theme.textMuted,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+  splitMetricValue: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: theme.textPrimary,
+  },
+  splitMetricDivider: {
+    width: 1,
+    height: 24,
+    backgroundColor: theme.cardBorder,
+  },
+  participantsSection: {
+    marginBottom: 10,
+  },
+  participantsSectionTitle: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: theme.textMuted,
+    marginBottom: 6,
+    textTransform: 'uppercase',
+  },
+  participantPillsWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  participantPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  participantPillPaid: {
+    backgroundColor: theme.card,
+    borderColor: '#10B98140',
+  },
+  participantPillUnpaid: {
+    backgroundColor: theme.card,
+    borderColor: '#F59E0B40',
+  },
+  participantPillName: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: theme.textPrimary,
+  },
+  participantPillAmount: {
+    fontSize: 12,
+    fontWeight: '500',
     color: theme.textSecondary,
-    fontStyle: 'italic',
-    marginBottom: 12,
+  },
+  manageSplitButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: theme.primaryLight || theme.card,
+    borderWidth: 1,
+    borderColor: theme.primaryLight || theme.cardBorder,
+    marginTop: 2,
+  },
+  manageSplitButtonText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: theme.primary,
+  },
+  personalSummaryCard: {
     backgroundColor: theme.surface,
-    padding: 8,
-    borderRadius: 6,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+    padding: 10,
+    marginBottom: 12,
+  },
+  personalSummaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  personalSummaryLabel: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: theme.textPrimary,
+  },
+  personalSummaryValue: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: theme.primary,
   },
   shortActionsRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 8,
-    borderTopWidth: 1,
-    borderTopColor: theme.cardBorder,
-    paddingTop: 10,
+    gap: 10,
+    paddingTop: 4,
   },
-  shortActionBtn: {
+  shortActionEditBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
     backgroundColor: theme.surface,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
-  shortActionBtnText: {
-    fontSize: 12,
+  shortActionEditText: {
+    fontSize: 13,
     fontWeight: '600',
-    color: theme.textSecondary,
+    color: theme.textPrimary,
   },
-  shortDeleteBtn: {
+  shortActionDeleteBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 8,
     backgroundColor: theme.dangerSurface,
+    borderWidth: 1,
+    borderColor: theme.danger + '30',
   },
-  shortDeleteText: {
+  shortActionDeleteText: {
+    fontSize: 13,
+    fontWeight: '600',
     color: theme.danger,
   },
   bottomSheetContent: {
-    backgroundColor: theme.card,
+    backgroundColor: getSolidColor(theme.card, mode === 'dark' ? '#1A202C' : '#FFFFFF'),
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     maxHeight: '85%',
     paddingBottom: 20,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   modalScrollView: {
     flexGrow: 1,
@@ -1634,6 +2093,14 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
+  filterSubSectionTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    marginBottom: 6,
+    marginTop: 2,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
   modalChip: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1642,7 +2109,7 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: theme.cardBorder,
-    backgroundColor: theme.surface,
+    backgroundColor: getSolidColor(theme.surface, mode === 'dark' ? '#242C3D' : '#F4F5F7'),
   },
   modalChipActive: {
     backgroundColor: theme.primary,
@@ -1681,7 +2148,7 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.surface,
+    backgroundColor: getSolidColor(theme.surface, mode === 'dark' ? '#242C3D' : '#F4F5F7'),
     borderWidth: 1,
     borderColor: theme.cardBorder,
     borderRadius: 8,
@@ -1702,7 +2169,7 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     paddingVertical: 16,
     borderTopWidth: 1,
     borderTopColor: theme.surface,
-    backgroundColor: theme.card,
+    backgroundColor: getSolidColor(theme.card, mode === 'dark' ? '#1A202C' : '#FFFFFF'),
   },
   clearAllFiltersBtn: {
     flex: 1,

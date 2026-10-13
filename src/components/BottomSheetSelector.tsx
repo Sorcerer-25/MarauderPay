@@ -3,6 +3,7 @@ import { View, Text, Modal, TouchableOpacity, FlatList, StyleSheet, Dimensions }
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../theme/ThemeContext';
 import { ThemeColors } from '../theme/types';
+import { getSolidColor } from '../theme/palettes';
 
 const { height } = Dimensions.get('window');
 
@@ -23,8 +24,8 @@ export const BottomSheetSelector: React.FC<BottomSheetSelectorProps> = ({
   selectedValue,
   onSelect,
 }) => {
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  const { theme, mode } = useTheme();
+  const styles = getStyles(theme, mode);
 
   return (
     <Modal
@@ -42,7 +43,7 @@ export const BottomSheetSelector: React.FC<BottomSheetSelectorProps> = ({
           <View style={styles.header}>
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <Ionicons name="close" size={24} color="#333" />
+              <Ionicons name="close" size={24} color={theme.textSecondary} />
             </TouchableOpacity>
           </View>
           
@@ -63,7 +64,7 @@ export const BottomSheetSelector: React.FC<BottomSheetSelectorProps> = ({
                     {item.label}
                   </Text>
                   {isSelected && (
-                    <Ionicons name="checkmark-circle" size={24} color="#2f95dc" />
+                    <Ionicons name="checkmark-circle" size={24} color={theme.primary} />
                   )}
                 </TouchableOpacity>
               );
@@ -76,24 +77,26 @@ export const BottomSheetSelector: React.FC<BottomSheetSelectorProps> = ({
   );
 };
 
-const getStyles = (theme: ThemeColors) => StyleSheet.create({
+const getStyles = (theme: ThemeColors, mode: 'light' | 'dark') => StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: 'rgba(0, 0, 0, 0.55)',
     justifyContent: 'flex-end',
   },
   sheetContainer: {
-    backgroundColor: theme.surface,
+    backgroundColor: getSolidColor(theme.card, mode === 'dark' ? '#1A202C' : '#FFFFFF'),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: height * 0.6,
     paddingTop: 16,
     paddingBottom: 32,
-    elevation: 10,
+    elevation: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
+    shadowOffset: { width: 0, height: -3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
   },
   header: {
     flexDirection: 'row',
@@ -124,7 +127,7 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 12,
     marginBottom: 8,
-    backgroundColor: theme.background,
+    backgroundColor: getSolidColor(theme.surface, mode === 'dark' ? '#242C3D' : '#F4F5F7'),
   },
   itemSelected: {
     backgroundColor: theme.primaryLight,

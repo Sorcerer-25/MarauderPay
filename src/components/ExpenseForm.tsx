@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch, Alert, Platform } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch, Alert, Platform, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useExpenses } from '../contexts/ExpenseContext';
+import { useToast } from '../contexts/ToastContext';
 import { useTheme } from '../theme/ThemeContext';
 import { ThemeColors } from '../theme/types';
 import { ExpenseLog, SplitParticipant, PaymentMode } from '../types';
@@ -20,14 +21,20 @@ interface ExpenseFormProps {
   submitButtonText?: string;
 }
 
-export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit, submitButtonText = "Save Expense" }) => {
+export const ExpenseForm: React.FC<ExpenseFormProps> = ({ 
+  initialData, 
+  onSubmit, 
+  submitButtonText = "Save Expense"
+}) => {
   const { theme, mode } = useTheme();
+  const { showToast } = useToast();
   const styles = getStyles(theme);
 
-  const { categories, regularMembers, events, activeEvent } = useExpenses();
+  const { categories, categoryGroups, regularMembers, events, activeEvent } = useExpenses();
+  const [selectedParentFilter, setSelectedParentFilter] = useState<string>('All');
   
   const [amount, setAmount] = useState(initialData?.totalAmount ? initialData.totalAmount.toString() : '');
-  const [paymentMode, setPaymentMode] = useState<PaymentMode | undefined>(initialData?.paymentMode);
+  const [paymentMode, setPaymentMode] = useState<PaymentMode | undefined>(initialData ? initialData.paymentMode : 'UPI');
   const [eventId, setEventId] = useState<string | undefined>(initialData?.eventId || activeEvent?.id);
   const [userChangedEvent, setUserChangedEvent] = useState(false);
   const [showEventSelector, setShowEventSelector] = useState(false);
@@ -42,7 +49,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
   const selectedEventLabel = eventId ? events.find(e => e.id === eventId)?.name || 'None (Overall)' : 'None (Overall)';
 
   const initialCat = initialData?.category;
-  let startCat = categories.length > 0 ? categories[0] : '';
+  let startCat = 'Others';
   let startCustom = '';
 
   if (initialCat) {
@@ -52,16 +59,20 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
       startCat = 'Others';
       startCustom = initialCat;
     }
+  } else {
+    startCat = categories.find(c => c.toLowerCase() === 'others') || (categories.length > 0 ? categories[0] : 'Others');
   }
 
   const [category, setCategory] = useState<string>(startCat);
   const [customCategory, setCustomCategory] = useState<string>(startCustom);
-  
-  React.useEffect(() => {
-    if (!category && categories.length > 0) {
-      setCategory(categories[0]);
+
+  const visibleSubcategories = React.useMemo(() => {
+    if (selectedParentFilter === 'All') {
+      return categories;
     }
-  }, [categories, category]);
+    const group = categoryGroups.find(g => g.name.toLowerCase() === selectedParentFilter.toLowerCase());
+    return group ? group.subcategories : categories;
+  }, [selectedParentFilter, categoryGroups, categories]);
 
   React.useEffect(() => {
     if (!initialData && !userChangedEvent) {
@@ -79,8 +90,8 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
     return now;
   };
 
-  const initialDateObj = initialData ? new Date(initialData.expenseDate) : getRoundedTime();
-  const initialHasTime = initialData ? initialData.expenseDate.includes('T') : true;
+  const initialDateObj = initialData ? new Date(initialData.expenseDate) : new Date();
+  const initialHasTime = initialData ? initialData.expenseDate.includes('T') : false;
 
   const [remark, setRemark] = useState(initialData?.remark || '');
   const [dateObj, setDateObj] = useState(initialDateObj);
@@ -151,7 +162,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
   const handleSave = async () => {
     const numAmt = parseFloat(amount);
     if (isNaN(numAmt) || numAmt <= 0) {
-      Alert.alert('Invalid Amount', 'Please enter a valid amount.');
+      showToast('Please enter a valid amount.', 'error');
       return;
     }
 
@@ -163,7 +174,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
     if (isSplit) {
       const currentCustomTotal = participants.filter(p => p.shareAmountText.trim() !== '').reduce((sum, p) => sum + (parseFloat(p.shareAmountText) || 0), 0);
       if (parsedAmount - currentCustomTotal < 0) {
-        Alert.alert('Invalid Split', 'Total custom shares exceed the transaction amount.');
+        showToast('Total custom shares exceed the transaction amount.', 'error');
         return;
       }
       
@@ -211,12 +222,16 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
     // Only reset if it's not an edit form
     if (!initialData) {
       setAmount('');
-      setPaymentMode(undefined);
+      setPaymentMode('UPI');
       setRemark('');
+      const defaultOthers = categories.find(c => c.toLowerCase() === 'others') || 'Others';
+      setCategory(defaultOthers);
+      setCustomCategory('');
+      setSelectedParentFilter('All');
       setIsSplit(false);
       setParticipants([]);
-      setDateObj(getRoundedTime());
-      setHasTime(true);
+      setDateObj(new Date());
+      setHasTime(false);
       setEventId(activeEvent?.id);
       setUserChangedEvent(false);
     }
@@ -229,7 +244,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
       return;
     }
     if (events.some(e => e.name.toLowerCase() === name.toLowerCase())) {
-      Alert.alert('Error', 'An event with this name already exists.');
+      showToast('An event with this name already exists.', 'error');
       return;
     }
     const newEvId = uuidv4();
@@ -246,7 +261,11 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
 
   return (
     <View style={styles.card}>
-      {!initialData && <Text style={styles.cardTitle}>Quick Add</Text>}
+      {!initialData && (
+        <View style={styles.cardHeaderRow}>
+          <Text style={styles.cardTitle}>Quick Add</Text>
+        </View>
+      )}
       
       <TextInput
         style={styles.input}
@@ -353,6 +372,26 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
         </TouchableOpacity>
       </View>
 
+      <TouchableOpacity 
+        style={styles.timeCheckboxRow}
+        onPress={() => {
+          if (!hasTime) {
+            setDateObj(getRoundedTime());
+            setHasTime(true);
+          } else {
+            setHasTime(false);
+          }
+        }}
+        activeOpacity={0.7}
+      >
+        <Ionicons 
+          name={hasTime ? "checkbox" : "square-outline"} 
+          size={20} 
+          color={hasTime ? theme.primary : theme.textMuted} 
+        />
+        <Text style={styles.timeCheckboxLabel}>Round to current time</Text>
+      </TouchableOpacity>
+
       {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -387,8 +426,31 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ initialData, onSubmit,
       />
 
       <Text style={styles.label}>Category</Text>
+      
+      {/* Parent Category Filter Tabs */}
+      <View style={styles.parentFilterContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.parentFilterScroll}>
+          <TouchableOpacity
+            style={[styles.parentTab, selectedParentFilter === 'All' && styles.parentTabActive]}
+            onPress={() => setSelectedParentFilter('All')}
+          >
+            <Text style={[styles.parentTabText, selectedParentFilter === 'All' && styles.parentTabTextActive]}>All</Text>
+          </TouchableOpacity>
+          {categoryGroups.map(g => (
+            <TouchableOpacity
+              key={g.id}
+              style={[styles.parentTab, selectedParentFilter === g.name && styles.parentTabActive]}
+              onPress={() => setSelectedParentFilter(g.name)}
+            >
+              <Text style={[styles.parentTabText, selectedParentFilter === g.name && styles.parentTabTextActive]}>{g.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* Child Category Chips */}
       <View style={styles.chipContainer}>
-        {categories.map(c => (
+        {visibleSubcategories.map(c => (
           <TouchableOpacity 
             key={c} 
             style={[styles.chip, category === c && styles.chipActive]}
@@ -537,9 +599,15 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
   cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 12,
     color: theme.textPrimary,
   },
+  cardHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+
   input: {
     borderWidth: 1,
     borderColor: theme.cardBorder,
@@ -565,12 +633,53 @@ const getStyles = (theme: ThemeColors) => StyleSheet.create({
   clearTimeBtn: {
     padding: 2,
   },
+  timeCheckboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: -4,
+    marginBottom: 12,
+    paddingHorizontal: 2,
+    gap: 8,
+  },
+  timeCheckboxLabel: {
+    fontSize: 13,
+    color: theme.textSecondary,
+    fontWeight: '500',
+  },
   label: {
     fontSize: 14,
     fontWeight: '600',
     color: theme.textSecondary,
     marginBottom: 8,
     marginTop: 4,
+  },
+  parentFilterContainer: {
+    marginBottom: 10,
+  },
+  parentFilterScroll: {
+    paddingVertical: 2,
+    gap: 6,
+  },
+  parentTab: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    backgroundColor: theme.surface,
+    borderWidth: 1,
+    borderColor: theme.cardBorder,
+  },
+  parentTabActive: {
+    backgroundColor: theme.primaryLight || theme.card,
+    borderColor: theme.primary,
+  },
+  parentTabText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: theme.textSecondary,
+  },
+  parentTabTextActive: {
+    color: theme.primary,
+    fontWeight: 'bold',
   },
   chipContainer: {
     flexDirection: 'row',

@@ -9,8 +9,8 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#1a0f0a"
     },
     "ios": {
       "supportsTablet": true
@@ -31,6 +31,20 @@
           "android": {
             "enableProguardInReleaseBuilds": true,
             "enableShrinkResourcesInReleaseBuilds": true
+          }
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#1a0f0a",
+          "image": "./assets/splash.png",
+          "resizeMode": "cover",
+          "enableFullScreenImage_legacy": true,
+          "android": {
+            "backgroundColor": "#1a0f0a",
+            "image": "./assets/splash.png",
+            "resizeMode": "cover"
           }
         }
       ]

@@ -203,3 +203,27 @@ export const darkThemes: ThemeOption[] = [
     },
   },
 ];
+
+/**
+ * Converts any theme color (hex, rgb, rgba) into a guaranteed 100% solid opaque hex color.
+ * If the color contains alpha/opacity (like in glass themes), it strips the transparency
+ * and converts to a solid opaque hex string, ensuring popup cards and modals have crisp, solid backgrounds.
+ */
+export const getSolidColor = (color: string, fallback: string = '#FFFFFF'): string => {
+  if (!color) return fallback;
+  const trimmed = color.trim();
+  if (trimmed.startsWith('#')) {
+    if (trimmed.length === 9) {
+      return trimmed.substring(0, 7); // Strip alpha from 8-digit hex
+    }
+    return trimmed;
+  }
+  const match = trimmed.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+  if (match) {
+    const r = Math.min(255, Math.max(0, parseInt(match[1], 10))).toString(16).padStart(2, '0');
+    const g = Math.min(255, Math.max(0, parseInt(match[2], 10))).toString(16).padStart(2, '0');
+    const b = Math.min(255, Math.max(0, parseInt(match[3], 10))).toString(16).padStart(2, '0');
+    return `#${r}${g}${b}`;
+  }
+  return fallback;
+};

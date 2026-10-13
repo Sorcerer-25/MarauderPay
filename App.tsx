@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ExpenseProvider } from './src/contexts/ExpenseContext';
+import { ToastProvider } from './src/contexts/ToastContext';
 import { ThemeProvider, useTheme } from './src/theme/ThemeContext';
 import { DashboardScreen } from './src/screens/DashboardScreen';
 import { HistoryScreen } from './src/screens/HistoryScreen';
@@ -88,9 +89,11 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <ExpenseProvider>
-          <RootNavigator />
-        </ExpenseProvider>
+        <ToastProvider>
+          <ExpenseProvider>
+            <RootNavigator />
+          </ExpenseProvider>
+        </ToastProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
