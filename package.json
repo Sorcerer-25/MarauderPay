@@ -1,6 +1,6 @@
 {
-  "name": "simpletracker",
-  "version": "1.0.0",
+  "name": "marauder-pay",
+  "version": "2.0.0",
   "main": "index.js",
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
