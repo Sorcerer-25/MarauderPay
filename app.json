@@ -2,7 +2,7 @@
   "expo": {
     "name": "MarauderPay",
     "slug": "simpleTracker",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "jsEngine": "hermes",
     "icon": "./assets/icon.png",
@@ -17,6 +17,7 @@
     },
     "android": {
       "package": "com.myproject.expensetracker",
+      "versionCode": 2,
       "jsEngine": "hermes"
     },
     "web": {
@@ -47,7 +48,9 @@
             "resizeMode": "cover"
           }
         }
-      ]
+      ],
+      "expo-sharing",
+      "expo-status-bar"
     ],
     "extra": {
       "eas": {

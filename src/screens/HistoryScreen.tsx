@@ -12,14 +12,9 @@ import {
   TextInput, 
   KeyboardAvoidingView, 
   Platform,
-  LayoutAnimation,
-  UIManager
+  LayoutAnimation
 } from 'react-native';
 import { useExpenses } from '../contexts/ExpenseContext';
-
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 import { useTheme } from '../theme/ThemeContext';
 import { ThemeColors } from '../theme/types';
 import { getSolidColor } from '../theme/palettes';
